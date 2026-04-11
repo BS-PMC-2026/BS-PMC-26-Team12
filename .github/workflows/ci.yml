@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main", "dev" ]
+  pull_request:
+    branches: [ "main", "dev" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install server dependencies
+        working-directory: "Peppers Market/server"
+        run: npm install
+
+      - name: Install client dependencies
+        working-directory: "Peppers Market/client"
+        run: npm install
+
+      - name: Build client
+        working-directory: "Peppers Market/client"
+        run: npm run build
