@@ -1,3 +1,4 @@
+// BSPMT12-140: Admin login — restricted area, dark theme, role-based JWT
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
