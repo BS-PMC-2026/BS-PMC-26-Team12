@@ -1,3 +1,4 @@
+// BSPMT12-29: Pepper controller — admin adds peppers, duplicate name prevention
 const Pepper = require('../models/Pepper');
 const { validationResult } = require('express-validator');
 
