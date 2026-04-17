@@ -1,3 +1,4 @@
+// BSPMT12-161: User management — delete visitors, admin account protected from deletion
 const User = require('../models/User');
 
 // GET /api/users — admin (list all visitors)
