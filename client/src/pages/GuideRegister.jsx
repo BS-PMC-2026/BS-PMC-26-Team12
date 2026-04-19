@@ -1,3 +1,4 @@
+// BSPMT12-129: Guide registration form — saved with pending approval status
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { registerGuide } from '../api/auth';
