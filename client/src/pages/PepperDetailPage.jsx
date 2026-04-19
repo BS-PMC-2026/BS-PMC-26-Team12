@@ -1,3 +1,4 @@
+// BSPMT12-114: Full pepper detail view — origin, color, heat level, image
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
