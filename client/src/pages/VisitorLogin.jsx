@@ -1,3 +1,4 @@
+// BSPMT12-30: Visitor login — JWT stored in localStorage, redirects to peppers catalog
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
