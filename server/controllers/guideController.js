@@ -1,3 +1,4 @@
+// BSPMT12-151: Guide management — approve, reject, reset status, delete guide
 const Guide = require('../models/Guide');
 
 // GET /api/guides — admin
