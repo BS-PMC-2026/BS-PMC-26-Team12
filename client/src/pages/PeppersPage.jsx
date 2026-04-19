@@ -1,3 +1,4 @@
+// BSPMT12-103: Pepper search — case-insensitive partial name match, results grid
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
