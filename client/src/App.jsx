@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 
-// Pages
+// Sprint 1 Pages
 import HomePage          from './pages/HomePage';
 import VisitorRegister   from './pages/VisitorRegister';
 import VisitorLogin      from './pages/VisitorLogin';
@@ -14,7 +14,20 @@ import GuideDashboard    from './pages/GuideDashboard';
 import AdminDashboard    from './pages/AdminDashboard';
 import NotFound          from './pages/NotFound';
 
-// Route guards
+// Sprint 2 Pages
+import StorePage             from './pages/StorePage';
+import ProductDetailPage     from './pages/ProductDetailPage';
+import CartPage              from './pages/CartPage';
+import CheckoutPage          from './pages/CheckoutPage';
+import AddProductPage        from './pages/AddProductPage';
+import ManageProductsPage    from './pages/ManageProductsPage';
+import OrdersManagementPage  from './pages/OrdersManagementPage';
+import ToursPage             from './pages/ToursPage';
+import BookingConfirmPage    from './pages/BookingConfirmPage';
+import MyBookingsPage        from './pages/MyBookingsPage';
+import CreateTourPage        from './pages/guide/CreateTourPage';
+import MyToursPage           from './pages/guide/MyToursPage';
+
 const PrivateRoute = ({ children, roles }) => {
   const { user } = useAuth();
   if (!user) return <Navigate to="/login" replace />;
@@ -36,23 +49,35 @@ const AppRoutes = () => (
   <Routes>
     {/* Public */}
     <Route path="/" element={<HomePage />} />
+    <Route path="/peppers"     element={<PeppersPage />} />
+    <Route path="/peppers/:id" element={<PepperDetailPage />} />
 
-    {/* Guest-only auth */}
+    {/* Guest-only */}
     <Route path="/register"       element={<GuestRoute><VisitorRegister /></GuestRoute>} />
     <Route path="/login"          element={<GuestRoute><VisitorLogin /></GuestRoute>} />
     <Route path="/guide/register" element={<GuestRoute><GuideRegister /></GuestRoute>} />
     <Route path="/guide/login"    element={<GuestRoute><GuideLogin /></GuestRoute>} />
     <Route path="/admin/login"    element={<GuestRoute><AdminLogin /></GuestRoute>} />
 
-    {/* Peppers — fully public */}
-    <Route path="/peppers"     element={<PeppersPage />} />
-    <Route path="/peppers/:id" element={<PepperDetailPage />} />
+    {/* Visitor */}
+    <Route path="/store"        element={<PrivateRoute roles={['visitor']}><StorePage /></PrivateRoute>} />
+    <Route path="/store/:id"    element={<PrivateRoute roles={['visitor']}><ProductDetailPage /></PrivateRoute>} />
+    <Route path="/cart"         element={<PrivateRoute roles={['visitor']}><CartPage /></PrivateRoute>} />
+    <Route path="/checkout"     element={<PrivateRoute roles={['visitor']}><CheckoutPage /></PrivateRoute>} />
+    <Route path="/tours"        element={<PrivateRoute roles={['visitor']}><ToursPage /></PrivateRoute>} />
+    <Route path="/tours/confirm" element={<PrivateRoute roles={['visitor']}><BookingConfirmPage /></PrivateRoute>} />
+    <Route path="/my-bookings"  element={<PrivateRoute roles={['visitor']}><MyBookingsPage /></PrivateRoute>} />
 
     {/* Guide */}
-    <Route path="/guide" element={<PrivateRoute roles={['guide']}><GuideDashboard /></PrivateRoute>} />
+    <Route path="/guide"              element={<PrivateRoute roles={['guide']}><GuideDashboard /></PrivateRoute>} />
+    <Route path="/guide/tours"        element={<PrivateRoute roles={['guide']}><MyToursPage /></PrivateRoute>} />
+    <Route path="/guide/tours/create" element={<PrivateRoute roles={['guide']}><CreateTourPage /></PrivateRoute>} />
 
     {/* Admin */}
-    <Route path="/admin" element={<PrivateRoute roles={['admin']}><AdminDashboard /></PrivateRoute>} />
+    <Route path="/admin"          element={<PrivateRoute roles={['admin']}><AdminDashboard /></PrivateRoute>} />
+    <Route path="/admin/products" element={<PrivateRoute roles={['admin']}><ManageProductsPage /></PrivateRoute>} />
+    <Route path="/admin/products/add" element={<PrivateRoute roles={['admin']}><AddProductPage /></PrivateRoute>} />
+    <Route path="/admin/orders"   element={<PrivateRoute roles={['admin']}><OrdersManagementPage /></PrivateRoute>} />
 
     <Route path="*" element={<NotFound />} />
   </Routes>
