@@ -23,7 +23,7 @@ export default function BookingConfirmPage() {
         <h1 className="text-3xl font-bold text-cream font-display mb-2">Booking Confirmed!</h1>
         <p className="text-cream-muted mb-10">Your tour has been successfully booked.</p>
 
-        <div className="rounded-2xl p-6 text-left space-y-3" style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <div className="rounded-2xl p-6 text-left space-y-3" style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.08)' }}>
           <h2 className="font-bold text-cream font-display text-lg">{tour?.title}</h2>
           <div className="space-y-2 text-sm">
             <div className="flex items-center justify-between"><span className="text-cream-muted">Date</span><span className="text-cream font-medium">{tour?.date ? new Date(tour.date).toLocaleDateString() : '—'}</span></div>
@@ -34,7 +34,7 @@ export default function BookingConfirmPage() {
         </div>
 
         <div className="flex gap-3 mt-8">
-          <Link to="/my-bookings" className="flex-1 py-3 text-sm font-bold rounded-xl text-cream text-center" style={{ border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.025)' }}>My Bookings</Link>
+          <Link to="/my-bookings" className="flex-1 py-3 text-sm font-bold rounded-xl text-center" style={{ border: '1px solid rgba(28,17,10,0.12)', background: '#FFFFFF', color: '#5A3D2B' }}>My Bookings</Link>
           <Link to="/tours" className="flex-1 py-3 text-sm font-bold rounded-xl text-white text-center" style={{ background: 'linear-gradient(135deg, #2D6A1A, #52AB33)' }}>More Tours</Link>
         </div>
       </div>
