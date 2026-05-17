@@ -23,7 +23,7 @@ export default function AdminLogin() {
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-dark-300">
       <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 40%, rgba(194,54,16,0.08), transparent)' }} />
       <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
-      <div className="absolute top-10 right-[15%] text-[180px] opacity-[0.03] rotate-[-15deg] animate-float select-none">🔐</div>
+      <div className="absolute top-10 right-[15%] w-56 h-56 opacity-[0.04] rotate-[-15deg] animate-float rounded-full" style={{ background: 'radial-gradient(circle, #E84420, transparent 70%)' }} />
 
       <div className="relative z-10 w-full max-w-md mx-6">
         <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid rgba(255,255,255,0.06)' }}>

@@ -92,10 +92,10 @@ export default function MyToursPage() {
                 <h3 className="font-bold text-cream font-display text-lg mb-1">{t.title}</h3>
                 <p className="text-cream-dim text-sm line-clamp-2 mb-4">{t.description}</p>
                 <div className="flex flex-wrap gap-2 text-xs text-cream-muted mb-4">
-                  <span>📅 {new Date(t.date).toLocaleDateString()}</span>
-                  <span>🕐 {t.time}</span>
-                  <span>💰 ${t.price.toFixed(2)}</span>
-                  <span>🎟️ {t.bookedSlots}/{t.maxParticipants} booked</span>
+                  <span className="flex items-center gap-1"><svg className="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>{new Date(t.date).toLocaleDateString()}</span>
+                  <span className="flex items-center gap-1"><svg className="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>{t.time}</span>
+                  <span className="flex items-center gap-1"><svg className="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>${t.price.toFixed(2)}</span>
+                  <span className="flex items-center gap-1"><svg className="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" /></svg>{t.bookedSlots}/{t.maxParticipants} booked</span>
                 </div>
                 <button onClick={() => setEditing(t)} className="w-full py-2 text-sm font-bold rounded-xl transition-all" style={{ background: 'rgba(212,160,83,0.08)', color: '#D4A053', border: '1px solid rgba(212,160,83,0.15)' }}>Edit Tour</button>
               </div>
