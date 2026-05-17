@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import { useAuth } from '../context/AuthContext';
 import { getProducts } from '../api/products';
 import { addToCart } from '../api/cart';
 
-function ProductCard({ product, onAddToCart }) {
+function ProductCard({ product, onAddToCart, onBuyNow }) {
   const [adding, setAdding] = useState(false);
   const [added, setAdded] = useState(false);
+  const [buyingNow, setBuyingNow] = useState(false);
 
   const handleAdd = async () => {
     setAdding(true);
@@ -17,6 +19,12 @@ function ProductCard({ product, onAddToCart }) {
     } finally {
       setAdding(false);
     }
+  };
+
+  const handleBuyNow = async () => {
+    setBuyingNow(true);
+    try { await onBuyNow(product._id); }
+    finally { setBuyingNow(false); }
   };
 
   return (
@@ -43,21 +51,30 @@ function ProductCard({ product, onAddToCart }) {
           <h3 className="font-bold text-cream text-lg font-display mb-1 hover:text-fire-400 transition-colors">{product.name}</h3>
         </Link>
         <p className="text-cream-dim text-sm line-clamp-2 mb-4" style={{ minHeight: '2.5rem' }}>{product.description}</p>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-4">
           <span className="text-xl font-bold text-fire-400">${product.price.toFixed(2)}</span>
           <span className="text-xs text-cream-muted">{product.stock > 0 ? `${product.stock} in stock` : 'Out of stock'}</span>
         </div>
-        <button onClick={handleAdd} disabled={adding || product.stock === 0}
-          className="mt-4 w-full py-2.5 text-sm font-bold rounded-xl text-white transition-all disabled:opacity-40"
-          style={{ background: added ? 'linear-gradient(135deg, #2D6A1A, #52AB33)' : 'linear-gradient(135deg, #9A2B0D, #C23610)' }}>
-          {added ? '✓ Added to Cart' : adding ? 'Adding…' : 'Add to Cart'}
-        </button>
+        <div className="flex gap-2">
+          <button onClick={handleAdd} disabled={adding || product.stock === 0}
+            className="flex-1 py-2.5 text-sm font-bold rounded-xl text-white transition-all disabled:opacity-40"
+            style={{ background: added ? 'linear-gradient(135deg, #2D6A1A, #52AB33)' : 'linear-gradient(135deg, #9A2B0D, #C23610)' }}>
+            {added ? '✓ Added' : adding ? '…' : 'Add to Cart'}
+          </button>
+          <button onClick={handleBuyNow} disabled={buyingNow || product.stock === 0}
+            className="flex-1 py-2.5 text-sm font-bold rounded-xl text-white transition-all disabled:opacity-40"
+            style={{ background: 'linear-gradient(135deg, #2D6A1A, #52AB33)' }}>
+            {buyingNow ? '…' : 'Buy Now'}
+          </button>
+        </div>
       </div>
     </div>
   );
 }
 
 export default function StorePage() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -80,9 +97,19 @@ export default function StorePage() {
   };
 
   const handleAddToCart = async (productId) => {
+    if (!user) return navigate('/login');
     setCartError('');
     try { await addToCart({ productId, quantity: 1 }); }
     catch (err) { setCartError(err.response?.data?.message || 'Failed to add to cart.'); }
+  };
+
+  const handleBuyNow = async (productId) => {
+    if (!user) return navigate('/login');
+    setCartError('');
+    try {
+      await addToCart({ productId, quantity: 1 });
+      navigate('/checkout');
+    } catch (err) { setCartError(err.response?.data?.message || 'Failed to proceed to checkout.'); }
   };
 
   return (
@@ -121,7 +148,7 @@ export default function StorePage() {
         )}
         {!loading && !error && products.length > 0 && (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {products.map(p => <ProductCard key={p._id} product={p} onAddToCart={handleAddToCart} />)}
+            {products.map(p => <ProductCard key={p._id} product={p} onAddToCart={handleAddToCart} onBuyNow={handleBuyNow} />)}
           </div>
         )}
       </div>
