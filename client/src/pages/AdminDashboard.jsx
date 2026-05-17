@@ -14,7 +14,9 @@ function Confirm({ message, onConfirm, onCancel }) {
       <div className="relative z-10 w-full max-w-sm rounded-2xl overflow-hidden" style={{ background: '#1C1614', border: '1px solid rgba(255,255,255,0.08)' }}>
         <div className="h-1 w-full" style={{ background: 'linear-gradient(90deg, #E84420, #D4A053)' }} />
         <div className="p-7 text-center">
-          <div className="w-14 h-14 rounded-2xl mx-auto mb-4 flex items-center justify-center text-2xl" style={{ background: 'rgba(232,68,32,0.1)', border: '1px solid rgba(232,68,32,0.15)' }}>⚠️</div>
+          <div className="w-14 h-14 rounded-2xl mx-auto mb-4 flex items-center justify-center" style={{ background: 'rgba(232,68,32,0.1)', border: '1px solid rgba(232,68,32,0.15)' }}>
+            <svg className="w-7 h-7" style={{ color: '#E84420' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+          </div>
           <p className="font-bold text-cream text-base mb-2">Are you sure?</p>
           <p className="text-cream-dim text-sm mb-6">{message}</p>
           <div className="flex gap-3">
@@ -89,7 +91,7 @@ function EditPepperModal({ pepper, saving, onCancel, onSave }) {
 function StatCard({ icon, label, value, accent }) {
   return (
     <div className="glass-card p-5 flex items-center gap-4">
-      <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-xl flex-shrink-0" style={{ background: `${accent}12`, border: `1px solid ${accent}20` }}>{icon}</div>
+      <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0" style={{ background: `${accent}12`, border: `1px solid ${accent}20` }}>{icon}</div>
       <div>
         <p className="text-2xl font-bold text-cream font-display">{value}</p>
         <p className="text-xs text-cream-muted font-medium">{label}</p>
@@ -114,7 +116,9 @@ function GuidesPanel() {
   if (loading) return <div className="space-y-4">{[1, 2, 3].map(i => <div key={i} className="glass-card h-24 animate-pulse" />)}</div>;
   if (!guides.length) return (
     <div className="text-center py-20">
-      <div className="w-20 h-20 rounded-3xl mx-auto mb-5 flex items-center justify-center text-4xl" style={{ background: 'rgba(82,171,51,0.08)' }}>🌱</div>
+      <div className="w-20 h-20 rounded-3xl mx-auto mb-5 flex items-center justify-center" style={{ background: 'rgba(82,171,51,0.08)' }}>
+        <svg className="w-9 h-9" style={{ color: '#52AB33' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
+      </div>
       <h3 className="text-lg font-bold text-cream mb-2">No Applications Yet</h3>
       <p className="text-cream-muted text-sm">Guide applications will appear here once submitted.</p>
     </div>
@@ -125,17 +129,17 @@ function GuidesPanel() {
       {confirm && <Confirm message={`This will permanently remove "${confirm.name}" from the system.`} onConfirm={() => hd(confirm.id)} onCancel={() => setConfirm(null)} />}
 
       <div className="grid grid-cols-3 gap-4 mb-8">
-        <StatCard icon="👥" label="Total Guides" value={guides.length} accent="#D4A053" />
-        <StatCard icon="⏳" label="Pending Review" value={pending} accent="#E88C20" />
-        <StatCard icon="✅" label="Approved" value={approved} accent="#52AB33" />
+        <StatCard icon={<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>} label="Total Guides" value={guides.length} accent="#D4A053" />
+        <StatCard icon={<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>} label="Pending Review" value={pending} accent="#E88C20" />
+        <StatCard icon={<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>} label="Approved" value={approved} accent="#52AB33" />
       </div>
 
       <div className="space-y-3">
         {guides.map((g, i) => {
           const statusMap = {
-            pending:  { c: '#D4A053', bg: 'rgba(212,160,83,0.1)', border: 'rgba(212,160,83,0.2)', label: 'Pending', icon: '⏳' },
-            approved: { c: '#52AB33', bg: 'rgba(82,171,51,0.1)',  border: 'rgba(82,171,51,0.2)',  label: 'Approved', icon: '✅' },
-            rejected: { c: '#E84420', bg: 'rgba(232,68,32,0.1)',  border: 'rgba(232,68,32,0.2)',  label: 'Rejected', icon: '❌' },
+            pending:  { c: '#D4A053', bg: 'rgba(212,160,83,0.1)', border: 'rgba(212,160,83,0.2)', label: 'Pending' },
+            approved: { c: '#52AB33', bg: 'rgba(82,171,51,0.1)',  border: 'rgba(82,171,51,0.2)',  label: 'Approved' },
+            rejected: { c: '#E84420', bg: 'rgba(232,68,32,0.1)',  border: 'rgba(232,68,32,0.2)',  label: 'Rejected' },
           };
           const s = statusMap[g.status] || statusMap.pending;
 
@@ -150,7 +154,7 @@ function GuidesPanel() {
                     <div className="flex flex-wrap items-center gap-2 mb-1">
                       <span className="font-bold text-cream">{g.fullName}</span>
                       <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold" style={{ color: s.c, background: s.bg, border: `1px solid ${s.border}` }}>
-                        <span className="text-xs">{s.icon}</span> {s.label}
+                        <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: s.c }} /> {s.label}
                       </span>
                     </div>
                     <p className="text-sm text-cream-dim">{g.jobTitle}</p>
@@ -224,7 +228,9 @@ function UsersPanel() {
   if (loading) return <div className="space-y-3">{[1, 2, 3].map(i => <div key={i} className="glass-card h-20 animate-pulse" />)}</div>;
   if (!users.length) return (
     <div className="text-center py-20">
-      <div className="w-20 h-20 rounded-3xl mx-auto mb-5 flex items-center justify-center text-4xl" style={{ background: 'rgba(232,68,32,0.08)' }}>👥</div>
+      <div className="w-20 h-20 rounded-3xl mx-auto mb-5 flex items-center justify-center" style={{ background: 'rgba(232,68,32,0.08)' }}>
+        <svg className="w-9 h-9" style={{ color: '#E84420' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+      </div>
       <h3 className="text-lg font-bold text-cream mb-2">No Visitors Yet</h3>
       <p className="text-cream-muted text-sm">Registered visitors will appear here.</p>
     </div>
@@ -235,8 +241,8 @@ function UsersPanel() {
       {confirm && <Confirm message={`This will permanently remove "${confirm.name}".`} onConfirm={() => hd(confirm.id)} onCancel={() => setConfirm(null)} />}
 
       <div className="grid grid-cols-2 gap-4 mb-8">
-        <StatCard icon="👥" label="Total Visitors" value={users.length} accent="#E84420" />
-        <StatCard icon="📅" label="Latest Signup" value={users.length ? fmtDate(users[users.length - 1].createdAt) : '—'} accent="#D4A053" />
+        <StatCard icon={<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>} label="Total Visitors" value={users.length} accent="#E84420" />
+        <StatCard icon={<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>} label="Latest Signup" value={users.length ? fmtDate(users[users.length - 1].createdAt) : '—'} accent="#D4A053" />
       </div>
 
       <div className="glass-card overflow-hidden" style={{ background: 'rgba(255,255,255,0.02)', boxShadow: '0 14px 30px rgba(0,0,0,0.2)' }}>
@@ -372,7 +378,7 @@ function PeppersPanel() {
           <div className="h-[2px]" style={{ background: 'linear-gradient(90deg, #C23610, #E84420, #D4A053)' }} />
           <div className="p-6">
             <h3 className="font-bold text-cream mb-5 text-lg font-display">Add New Pepper</h3>
-            {serverError && <div className="mb-4 px-4 py-3 rounded-xl text-sm" style={{ background: 'rgba(232,68,32,0.1)', border: '1px solid rgba(232,68,32,0.2)', color: '#FF8866' }}>⚠ {serverError}</div>}
+            {serverError && <div className="mb-4 px-4 py-3 rounded-xl text-sm flex items-center gap-2" style={{ background: 'rgba(232,68,32,0.1)', border: '1px solid rgba(232,68,32,0.2)', color: '#FF8866' }}><svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>{serverError}</div>}
             <form onSubmit={handleAdd} className="space-y-4">
               <div className="grid sm:grid-cols-2 gap-4">
                 <div><label className="label-dark">Pepper Name *</label><input className={`input-dark ${errors.name ? '!border-fire-500/50' : ''}`} placeholder="e.g. Carolina Reaper" value={form.name} onChange={set('name')} />{errors.name && <p className="mt-1 text-xs text-fire-400">{errors.name}</p>}</div>
@@ -397,13 +403,17 @@ function PeppersPanel() {
       {loading ? <div className="space-y-3">{[1, 2, 3].map(i => <div key={i} className="glass-card h-20 animate-pulse" />)}</div>
       : peppers.length === 0 ? (
         <div className="text-center py-16">
-          <div className="w-20 h-20 rounded-3xl mx-auto mb-5 flex items-center justify-center text-4xl" style={{ background: 'rgba(232,68,32,0.08)' }}>🌶️</div>
+          <div className="w-20 h-20 rounded-3xl mx-auto mb-5 flex items-center justify-center" style={{ background: 'rgba(232,68,32,0.08)' }}>
+            <svg className="w-9 h-9" style={{ color: '#E84420' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" /></svg>
+          </div>
           <h3 className="text-lg font-bold text-cream mb-2">Catalog Empty</h3>
           <p className="text-cream-muted text-sm">Add the first pepper to get started.</p>
         </div>
       ) : filteredPeppers.length === 0 ? (
         <div className="text-center py-16 glass-card">
-          <div className="w-16 h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center text-3xl" style={{ background: 'rgba(212,160,83,0.08)' }}>🔍</div>
+          <div className="w-16 h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center" style={{ background: 'rgba(212,160,83,0.08)' }}>
+            <svg className="w-8 h-8" style={{ color: '#D4A053' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+          </div>
           <h3 className="text-lg font-bold text-cream mb-2">No matching peppers</h3>
           <p className="text-cream-muted text-sm">Try a different search term.</p>
         </div>
@@ -421,7 +431,9 @@ function PeppersPanel() {
             const hc = HC[p.heatLevel] || HC['Medium'];
             return (
               <div key={p._id} className="px-5 py-3.5 flex items-center gap-4 hover:bg-[#D4A05314] hover:shadow-[inset_0_0_0_1px_rgba(212,160,83,0.18)] transition-all duration-200" style={{ borderBottom: i < peppers.length - 1 ? '1px solid rgba(255,255,255,0.03)' : 'none', background: i % 2 ? 'rgba(255,255,255,0.015)' : 'transparent' }}>
-                <div className="text-xl flex-shrink-0 w-8 text-center">🌶️</div>
+                <div className="flex-shrink-0 w-8 flex items-center justify-center">
+                  <div className="w-2.5 h-2.5 rounded-full" style={{ background: hc }} />
+                </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-bold text-cream text-sm">{p.name}</p>
                   <p className="text-xs text-cream-muted truncate mt-0.5">{p.description?.slice(0, 45)}...</p>
@@ -457,7 +469,7 @@ export default function AdminDashboard() {
   const tabs = [
     { key: 'guides', label: 'Guides', icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg> },
     { key: 'users', label: 'Users', icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg> },
-    { key: 'peppers', label: 'Peppers', icon: <span className="text-sm">🌶️</span> },
+    { key: 'peppers', label: 'Peppers', icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" /></svg> },
   ];
 
   return (
@@ -465,7 +477,10 @@ export default function AdminDashboard() {
       <Navbar />
       <div className="relative overflow-hidden py-16 px-6 lg:px-12" style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 80%, rgba(194,54,16,0.10), transparent)' }}>
         <div className="max-w-6xl mx-auto relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.15em] mb-4" style={{ color: '#E84420', background: 'rgba(232,68,32,0.1)', border: '1px solid rgba(232,68,32,0.15)' }}>🔐 Administrator</div>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.15em] mb-4" style={{ color: '#E84420', background: 'rgba(232,68,32,0.1)', border: '1px solid rgba(232,68,32,0.15)' }}>
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+            Administrator
+          </div>
           <h1 className="text-4xl font-bold text-cream mb-1 font-display tracking-tight">Admin Dashboard</h1>
           <p className="text-cream-dim text-sm">Manage guides, visitors, and the pepper catalog.</p>
         </div>
