@@ -23,7 +23,7 @@ function EditModal({ product, onSave, onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4" style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)' }}>
-      <div className="w-full max-w-lg rounded-2xl p-6" style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.10)' }}>
+      <div className="w-full max-w-lg rounded-2xl p-6" style={{ background: '#1A1410', border: '1px solid rgba(255,255,255,0.08)' }}>
         <h2 className="text-lg font-bold text-cream font-display mb-5">Edit Product</h2>
         {error && <div className="mb-4 p-3 rounded-xl text-sm" style={{ background: 'rgba(232,68,32,0.08)', color: '#E84420' }}>{error}</div>}
         <div className="space-y-4">
@@ -37,7 +37,7 @@ function EditModal({ product, onSave, onClose }) {
         </div>
         <div className="flex gap-3 mt-6">
           <button onClick={handleSave} disabled={loading} className="flex-1 py-2.5 text-sm font-bold rounded-xl text-white disabled:opacity-50" style={{ background: 'linear-gradient(135deg, #9A2B0D, #C23610)' }}>{loading ? 'Saving…' : 'Save Changes'}</button>
-          <button onClick={onClose} className="px-5 py-2.5 text-sm font-bold rounded-xl text-cream-dim" style={{ border: '1px solid rgba(28,17,10,0.10)' }}>Cancel</button>
+          <button onClick={onClose} className="px-5 py-2.5 text-sm font-bold rounded-xl text-cream-dim" style={{ border: '1px solid rgba(255,255,255,0.08)' }}>Cancel</button>
         </div>
       </div>
     </div>
@@ -69,12 +69,6 @@ export default function ManageProductsPage() {
       <Navbar />
       {editing && <EditModal product={editing} onSave={updated => { setProducts(p => p.map(x => x._id === updated._id ? updated : x)); setEditing(null); }} onClose={() => setEditing(null)} />}
       <div className="max-w-6xl mx-auto px-6 lg:px-12 py-16">
-        <Link to="/admin" className="inline-flex items-center gap-2.5 mb-8 text-sm font-medium transition-all group" style={{ color: '#9B7260' }}>
-          <span className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: 'rgba(28,17,10,0.06)', border: '1px solid rgba(28,17,10,0.09)' }}>
-            <svg className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/></svg>
-          </span>
-          Back to Dashboard
-        </Link>
         <div className="flex items-center justify-between mb-10">
           <div>
             <h1 className="text-3xl font-bold text-cream font-display mb-1">Manage Products</h1>
@@ -90,9 +84,9 @@ export default function ManageProductsPage() {
         {!loading && products.length > 0 && (
           <div className="space-y-3">
             {products.map(p => (
-              <div key={p._id} className="flex items-center gap-4 p-4 rounded-xl" style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.08)' }}>
-                <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0" style={{ background: 'rgba(28,17,10,0.04)' }}>
-                  {p.imageUrl ? <img src={p.imageUrl} alt={p.name} className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center"><svg className="w-6 h-6" style={{ color: 'rgba(28,17,10,0.15)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg></div>}
+              <div key={p._id} className="flex items-center gap-4 p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.05)' }}>
+                <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0" style={{ background: 'rgba(255,255,255,0.03)' }}>
+                  {p.imageUrl ? <img src={p.imageUrl} alt={p.name} className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center"><svg className="w-6 h-6" style={{ color: 'rgba(240,228,216,0.15)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg></div>}
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-bold text-cream truncate">{p.name}</p>
