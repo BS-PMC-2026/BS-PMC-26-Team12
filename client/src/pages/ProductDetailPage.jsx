@@ -1,16 +1,20 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import { useAuth } from '../context/AuthContext';
 import { getProduct } from '../api/products';
 import { addToCart } from '../api/cart';
 
 export default function ProductDetailPage() {
   const { id } = useParams();
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [adding, setAdding] = useState(false);
   const [added, setAdded] = useState(false);
+  const [buyingNow, setBuyingNow] = useState(false);
   const [cartError, setCartError] = useState('');
 
   useEffect(() => {
@@ -23,6 +27,7 @@ export default function ProductDetailPage() {
   }, [id]);
 
   const handleAddToCart = async () => {
+    if (!user) return navigate('/login');
     setAdding(true); setCartError('');
     try {
       await addToCart({ productId: id, quantity: 1 });
@@ -31,6 +36,17 @@ export default function ProductDetailPage() {
     } catch (err) {
       setCartError(err.response?.data?.message || 'Failed to add to cart.');
     } finally { setAdding(false); }
+  };
+
+  const handleBuyNow = async () => {
+    if (!user) return navigate('/login');
+    setBuyingNow(true); setCartError('');
+    try {
+      await addToCart({ productId: id, quantity: 1 });
+      navigate('/checkout');
+    } catch (err) {
+      setCartError(err.response?.data?.message || 'Failed to proceed to checkout.');
+    } finally { setBuyingNow(false); }
   };
 
   if (loading) return <div className="min-h-screen bg-dark-300 flex items-center justify-center"><div className="text-cream-muted">Loading…</div></div>;
@@ -44,8 +60,10 @@ export default function ProductDetailPage() {
     <div className="min-h-screen bg-dark-300">
       <Navbar />
       <div className="max-w-5xl mx-auto px-6 lg:px-12 py-16">
-        <Link to="/store" className="inline-flex items-center gap-2 text-sm text-cream-muted hover:text-cream mb-10 transition-colors">
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/></svg>
+        <Link to="/store" className="inline-flex items-center gap-2.5 mb-10 text-sm font-medium transition-all group" style={{ color: '#9B7260' }}>
+          <span className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: 'rgba(28,17,10,0.06)', border: '1px solid rgba(28,17,10,0.09)' }}>
+            <svg className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/></svg>
+          </span>
           Back to Store
         </Link>
 
@@ -77,7 +95,13 @@ export default function ProductDetailPage() {
               {added ? '✓ Added to Cart' : adding ? 'Adding…' : product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
             </button>
 
-            <Link to="/cart" className="mt-3 text-center text-sm text-cream-muted hover:text-cream transition-colors">View Cart →</Link>
+            <button onClick={handleBuyNow} disabled={buyingNow || product.stock === 0}
+              className="w-full py-4 text-base font-bold rounded-xl text-white transition-all disabled:opacity-40 mt-3"
+              style={{ background: 'linear-gradient(135deg, #2D6A1A, #52AB33)' }}>
+              {buyingNow ? 'Processing…' : product.stock === 0 ? 'Out of Stock' : 'Buy Now'}
+            </button>
+
+            {added && <Link to="/cart" className="mt-3 text-center text-sm text-cream-muted hover:text-cream transition-colors block">View Cart →</Link>}
           </div>
         </div>
       </div>

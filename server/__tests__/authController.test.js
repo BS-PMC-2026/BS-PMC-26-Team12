@@ -36,6 +36,7 @@ beforeEach(() => {
   jwt.sign.mockReturnValue('fake-token');
 });
 
+// unit test
 // Checks that registerVisitor blocks duplicate email
 test('registerVisitor returns 409 when email already registered', async () => {
   const req = { body: { fullName: 'A', email: 'a@test.com', password: '123456' } };
@@ -49,6 +50,7 @@ test('registerVisitor returns 409 when email already registered', async () => {
   expect(res.json).toHaveBeenCalledWith({ message: 'Email already registered' });
 });
 
+// unit test
 // Checks that loginVisitor returns token when credentials are correct
 test('loginVisitor returns token and user data on valid credentials', async () => {
   const req = { body: { email: 'v@test.com', password: '123456' } };
@@ -66,6 +68,7 @@ test('loginVisitor returns token and user data on valid credentials', async () =
   });
 });
 
+// unit test
 // Checks that loginGuide returns 403 when guide is pending approval
 test('loginGuide returns 403 for pending guide', async () => {
   const req = { body: { email: 'g@test.com', password: '123456' } };
@@ -81,6 +84,7 @@ test('loginGuide returns 403 for pending guide', async () => {
   expect(res.json).toHaveBeenCalledWith({ message: 'Your account is pending admin approval.' });
 });
 
+// unit test
 // Checks that loginAdmin returns token when admin credentials are valid
 test('loginAdmin returns token and admin user when valid', async () => {
   const req = { body: { email: 'admin@test.com', password: 'admin123' } };
@@ -98,6 +102,7 @@ test('loginAdmin returns token and admin user when valid', async () => {
   });
 });
 
+// unit test
 // Checks that registerGuide creates guide with pending status
 test('registerGuide creates guide with pending status', async () => {
   const req = {

@@ -69,6 +69,12 @@ export default function ManageProductsPage() {
       <Navbar />
       {editing && <EditModal product={editing} onSave={updated => { setProducts(p => p.map(x => x._id === updated._id ? updated : x)); setEditing(null); }} onClose={() => setEditing(null)} />}
       <div className="max-w-6xl mx-auto px-6 lg:px-12 py-16">
+        <Link to="/admin" className="inline-flex items-center gap-2.5 mb-8 text-sm font-medium transition-all group" style={{ color: '#9B7260' }}>
+          <span className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: 'rgba(28,17,10,0.06)', border: '1px solid rgba(28,17,10,0.09)' }}>
+            <svg className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/></svg>
+          </span>
+          Back to Dashboard
+        </Link>
         <div className="flex items-center justify-between mb-10">
           <div>
             <h1 className="text-3xl font-bold text-cream font-display mb-1">Manage Products</h1>

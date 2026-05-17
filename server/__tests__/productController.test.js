@@ -12,6 +12,7 @@ function createRes() {
 
 beforeEach(() => { jest.clearAllMocks(); });
 
+// unit test
 test('createProduct returns 400 when required fields are missing', async () => {
   const req = { body: { name: 'Sauce' }, user: { id: 'mgr1' } };
   const res = createRes();
@@ -19,6 +20,7 @@ test('createProduct returns 400 when required fields are missing', async () => {
   expect(res.status).toHaveBeenCalledWith(400);
 });
 
+// unit test
 test('createProduct creates and returns product', async () => {
   const req = { body: { name: 'Hot Sauce', description: 'Spicy', price: 9.99, stock: 50 }, user: { id: 'mgr1' } };
   const res = createRes();
@@ -28,6 +30,7 @@ test('createProduct creates and returns product', async () => {
   expect(res.json).toHaveBeenCalledWith(product);
 });
 
+// unit test
 test('getProducts returns all products', async () => {
   const req = { query: {} };
   const res = createRes();
@@ -38,6 +41,7 @@ test('getProducts returns all products', async () => {
   expect(res.json).toHaveBeenCalledWith(products);
 });
 
+// unit test
 test('updateProduct returns 400 when price is negative', async () => {
   const req = { params: { id: 'p1' }, body: { name: 'Sauce', description: 'Spicy', price: -1, stock: 10 } };
   const res = createRes();
@@ -45,6 +49,7 @@ test('updateProduct returns 400 when price is negative', async () => {
   expect(res.status).toHaveBeenCalledWith(400);
 });
 
+// unit test
 test('updateProduct returns 404 when product not found', async () => {
   const req = { params: { id: 'p-missing' }, body: { name: 'Sauce', description: 'Spicy', price: 5, stock: 10 } };
   const res = createRes();

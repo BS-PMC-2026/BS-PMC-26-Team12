@@ -14,9 +14,11 @@ api.interceptors.response.use(
   (res) => res,
   (err) => {
     if (err.response?.status === 401) {
+      const hadToken = !!localStorage.getItem('token');
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      window.location.href = '/login';
+      // Only redirect guests who were previously logged in (expired session)
+      if (hadToken) window.location.href = '/login';
     }
     return Promise.reject(err);
   }

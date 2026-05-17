@@ -15,6 +15,7 @@ beforeEach(() => {
   process.env.JWT_SECRET = 'test-secret';
 });
 
+// unit test
 // Checks that protect returns 401 when token is missing
 test('protect returns 401 when authorization header is missing', () => {
   const req = { headers: {} };
@@ -27,6 +28,7 @@ test('protect returns 401 when authorization header is missing', () => {
   expect(next).not.toHaveBeenCalled();
 });
 
+// unit test
 // Checks that protect attaches decoded token to req.user
 test('protect sets req.user and calls next for valid token', () => {
   const req = { headers: { authorization: 'Bearer valid-token' } };
@@ -41,6 +43,7 @@ test('protect sets req.user and calls next for valid token', () => {
   expect(next).toHaveBeenCalled();
 });
 
+// unit test
 // Checks that requireRole blocks users with unauthorized roles
 test('requireRole returns 403 when role is not allowed', () => {
   const req = { user: { role: 'visitor' } };
@@ -54,6 +57,7 @@ test('requireRole returns 403 when role is not allowed', () => {
   expect(next).not.toHaveBeenCalled();
 });
 
+// unit test
 // Checks that requireRole allows users with authorized role
 test('requireRole calls next when role is allowed', () => {
   const req = { user: { role: 'admin' } };

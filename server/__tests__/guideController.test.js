@@ -18,6 +18,7 @@ beforeEach(() => {
   jest.clearAllMocks();
 });
 
+// unit test
 // Checks that getGuides returns list without password
 test('getGuides returns guides list', async () => {
   const req = {};
@@ -33,6 +34,7 @@ test('getGuides returns guides list', async () => {
   expect(res.json).toHaveBeenCalledWith(guides);
 });
 
+// unit test
 // Checks that updateGuideStatus rejects invalid status values
 test('updateGuideStatus returns 400 for invalid status', async () => {
   const req = { params: { id: 'g1' }, body: { status: 'unknown' } };
@@ -44,6 +46,7 @@ test('updateGuideStatus returns 400 for invalid status', async () => {
   expect(res.json).toHaveBeenCalledWith({ message: 'Invalid status' });
 });
 
+// unit test
 // Checks that updateGuideStatus updates and returns guide
 test('updateGuideStatus updates guide status', async () => {
   const req = { params: { id: 'g1' }, body: { status: 'approved' } };
@@ -58,6 +61,7 @@ test('updateGuideStatus updates guide status', async () => {
   expect(res.json).toHaveBeenCalledWith(updated);
 });
 
+// unit test
 // Checks that deleteGuide returns 404 when guide does not exist
 test('deleteGuide returns 404 when guide is missing', async () => {
   const req = { params: { id: 'g-missing' } };
