@@ -12,13 +12,21 @@ const NAV_LINKS = {
   visitor: [
     { label: 'Home', to: '/' },
     { label: 'Peppers', to: '/peppers' },
+    { label: 'Store', to: '/store' },
+    { label: 'Cart', to: '/cart' },
+    { label: 'Tours', to: '/tours' },
+    { label: 'My Bookings', to: '/my-bookings' },
   ],
   guide: [
     { label: 'Peppers', to: '/peppers' },
     { label: 'My Profile', to: '/guide' },
+    { label: 'My Tours', to: '/guide/tours' },
+    { label: 'Create Tour', to: '/guide/tours/create' },
   ],
   admin: [
     { label: 'Admin Panel', to: '/admin' },
+    { label: 'Products', to: '/admin/products' },
+    { label: 'Orders', to: '/admin/orders' },
   ],
 };
 
