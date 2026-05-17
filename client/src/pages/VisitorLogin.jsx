@@ -22,11 +22,11 @@ export default function VisitorLogin() {
   return (
     <div className="min-h-screen flex bg-dark-300">
       <div className="hidden lg:flex lg:w-5/12 xl:w-[45%] flex-col items-center justify-center relative overflow-hidden">
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, #1C1614 0%, #2A1A14 40%, #1C1614 100%)' }} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, #FFF2E8 0%, #FFE4D0 40%, #FFF2E8 100%)' }} />
         <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(232,68,32,0.12), transparent 70%)' }} />
-        <div className="absolute top-16 right-6 w-48 h-48 opacity-[0.07] rotate-[-10deg] animate-float rounded-full" style={{ background: 'radial-gradient(circle, #E84420, transparent 70%)' }} />
-        <div className="absolute bottom-24 left-8 w-28 h-28 opacity-[0.05] rotate-[10deg] animate-float-slow rounded-full" style={{ background: 'radial-gradient(circle, #D4A053, transparent 70%)' }} />
-        <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+        <div className="absolute top-16 right-6 w-48 h-48 opacity-[0.20] rotate-[-10deg] animate-float rounded-full" style={{ background: 'radial-gradient(circle, #E84420, transparent 70%)' }} />
+        <div className="absolute bottom-24 left-8 w-28 h-28 opacity-[0.15] rotate-[10deg] animate-float-slow rounded-full" style={{ background: 'radial-gradient(circle, #D4A053, transparent 70%)' }} />
+        <div className="absolute inset-0 opacity-[0.5]" style={{ backgroundImage: 'radial-gradient(circle, rgba(28,17,10,0.07) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
 
         <div className="relative z-10 px-12 text-center max-w-md">
           <div className="w-20 h-20 rounded-3xl mx-auto mb-8 flex items-center justify-center animate-pulse-glow" style={{ background: 'linear-gradient(135deg, #C23610, #E84420)', boxShadow: '0 0 40px rgba(232,68,32,0.2)' }}>
@@ -35,14 +35,14 @@ export default function VisitorLogin() {
           <h2 className="text-3xl font-bold text-cream mb-4 font-display tracking-tight">Welcome Back</h2>
           <p className="text-cream-dim text-sm leading-relaxed mb-10">Sign in to browse our pepper catalog and book your next farm tour.</p>
 
-          <div className="glass-card p-5 text-left mb-8" style={{ background: 'rgba(255,255,255,0.02)' }}>
+          <div className="glass-card p-5 text-left mb-8">
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-cream-muted mb-3">What you get</p>
             {[
               { icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>, text: '50+ Pepper Varieties' },
               { icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>, text: '4.9 Star Rating' },
               { icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>, text: 'Free Guided Tours' },
             ].map(({ icon, text }) => (
-              <div key={text} className="flex items-center gap-3 py-2" style={{ borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
+              <div key={text} className="flex items-center gap-3 py-2" style={{ borderBottom: '1px solid rgba(28,17,10,0.06)' }}>
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style={{ color: '#D4A053', background: 'rgba(212,160,83,0.08)' }}>{icon}</div>
                 <span className="text-sm text-cream-dim">{text}</span>
               </div>
@@ -57,7 +57,7 @@ export default function VisitorLogin() {
             <span className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #C23610, #E84420)' }}><svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" /></svg></span>
             Pepper Farm
           </Link>
-          <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.015)' }}>
+          <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid rgba(28,17,10,0.10)', background: '#FFFFFF' }}>
             <div className="h-[2px]" style={{ background: 'linear-gradient(90deg, #9A2B0D, #C23610, #D4A053)' }} />
             <div className="p-7">
               <div className="mb-8">
@@ -97,7 +97,7 @@ export default function VisitorLogin() {
                 </button>
               </form>
 
-              <div className="mt-8 pt-6 space-y-3 text-center text-sm" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+              <div className="mt-8 pt-6 space-y-3 text-center text-sm" style={{ borderTop: '1px solid rgba(28,17,10,0.07)' }}>
                 <p className="text-cream-muted">Don't have an account? <Link to="/register" className="text-fire-400 font-semibold hover:text-fire-300 transition-colors">Register</Link></p>
                 <p><Link to="/guide/login" className="text-cream-muted font-medium hover:text-cream-dim transition-colors flex items-center justify-center gap-1.5">
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>

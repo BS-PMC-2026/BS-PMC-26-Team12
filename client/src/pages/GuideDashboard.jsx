@@ -23,7 +23,7 @@ export default function GuideDashboard() {
 
       <div className="relative overflow-hidden py-16 px-6 lg:px-12">
         <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 80%, rgba(82,171,51,0.08), transparent)' }} />
-        <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+        <div className="absolute inset-0 opacity-[0.5]" style={{ backgroundImage: 'radial-gradient(circle, rgba(28,17,10,0.07) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.15em] mb-4" style={{ color: '#52AB33', background: 'rgba(82,171,51,0.08)', border: '1px solid rgba(82,171,51,0.15)' }}>
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
@@ -69,14 +69,14 @@ export default function GuideDashboard() {
               </div>
             </div>
 
-            <div className="grid sm:grid-cols-3 gap-3 mt-6 pt-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+            <div className="grid sm:grid-cols-3 gap-3 mt-6 pt-6" style={{ borderTop: '1px solid rgba(28,17,10,0.07)' }}>
               {[
                 { icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>, label: 'Role', value: 'Farm Guide' },
                 { icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>, label: 'Status', value: 'Active' },
                 { icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>, label: 'Access', value: 'Catalog + Profile' },
               ].map(({ icon, label, value }) => (
-                <div key={label} className="rounded-xl px-4 py-3.5 flex items-center gap-3" style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.04)' }}>
-                  <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style={{ color: 'rgba(240,228,216,0.35)', background: 'rgba(255,255,255,0.04)' }}>{icon}</div>
+                <div key={label} className="rounded-xl px-4 py-3.5 flex items-center gap-3" style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.07)' }}>
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style={{ color: '#9B7260', background: 'rgba(28,17,10,0.05)' }}>{icon}</div>
                   <div>
                     <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-cream-muted">{label}</p>
                     <p className="text-sm font-bold text-cream">{value}</p>
@@ -123,15 +123,15 @@ export default function GuideDashboard() {
           </Link>
 
           <div className="glass-card overflow-hidden opacity-45 cursor-not-allowed">
-            <div className="h-[2px]" style={{ background: 'rgba(255,255,255,0.04)' }} />
+            <div className="h-[2px]" style={{ background: 'rgba(28,17,10,0.08)' }} />
             <div className="p-6 flex items-start gap-4">
-              <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(255,255,255,0.04)' }}>
-                <svg className="w-6 h-6" style={{ color: 'rgba(240,228,216,0.25)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(28,17,10,0.05)' }}>
+                <svg className="w-6 h-6" style={{ color: '#9B7260' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
                   <h3 className="font-bold text-cream-dim">Tour Schedule</h3>
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider" style={{ background: 'rgba(255,255,255,0.06)', color: 'rgba(240,228,216,0.3)' }}>Coming Soon</span>
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider" style={{ background: 'rgba(28,17,10,0.06)', color: '#9B7260' }}>Coming Soon</span>
                 </div>
                 <p className="text-cream-muted text-sm leading-relaxed">View and manage your assigned tours. Available in the next release.</p>
               </div>

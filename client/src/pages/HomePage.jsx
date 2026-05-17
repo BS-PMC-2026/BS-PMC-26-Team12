@@ -29,7 +29,7 @@ export default function HomePage() {
         <div className="absolute inset-0">
           <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 70% 55% at 60% 45%, rgba(194,54,16,0.10) 0%, transparent 65%)' }} />
           <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 50% 40% at 20% 70%, rgba(212,160,83,0.05) 0%, transparent 55%)' }} />
-          <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+          <div className="absolute inset-0 opacity-[0.4]" style={{ backgroundImage: 'radial-gradient(circle, rgba(28,17,10,0.07) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-16 w-full">
@@ -49,7 +49,7 @@ export default function HomePage() {
                 <span className="text-cream block mt-2">at Our Farm</span>
               </h1>
 
-              <p className="text-lg leading-relaxed max-w-lg mb-9" style={{ color: 'rgba(240,228,216,0.45)' }}>
+              <p className="text-lg leading-relaxed max-w-lg mb-9" style={{ color: '#9B7260' }}>
                 From sweet bells to the world's hottest reapers — explore 50+ curated pepper varieties, led by expert guides through the fields of Hadinarim.
               </p>
 
@@ -88,7 +88,7 @@ export default function HomePage() {
                     </div>
                     <h3 className="font-bold text-cream text-sm mb-1">{p.name}</h3>
                     <div className="flex items-center gap-2 mt-2">
-                      <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.04)' }}>
+                      <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(28,17,10,0.10)' }}>
                         <div className="h-full rounded-full transition-all" style={{ width: `${Math.max(p.heat * 20, 5)}%`, background: `linear-gradient(90deg, ${p.c}88, ${p.c})`, boxShadow: `0 0 8px ${p.c}30` }} />
                       </div>
                       <span className="text-[10px] font-bold text-cream-muted">{p.shu}</span>
@@ -107,7 +107,7 @@ export default function HomePage() {
       </section>
 
       <section className="py-28 px-6 lg:px-16 relative">
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(22,17,15,0), rgba(194,54,16,0.03), rgba(22,17,15,0))' }} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, transparent, rgba(194,54,16,0.03), transparent)' }} />
         <div className="relative max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] mb-5" style={{ color: '#D4A053', background: 'rgba(212,160,83,0.06)', border: '1px solid rgba(212,160,83,0.12)' }}>
@@ -161,7 +161,7 @@ export default function HomePage() {
               { num: '03', title: 'Discover & Learn', desc: 'View Scoville ratings, colors, and growing regions.', icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg> },
             ].map(({ num, title, desc, icon }, i) => (
               <div key={num} className="relative text-center px-8 py-10 group">
-                {i < 2 && <div className="hidden md:block absolute top-1/2 right-0 w-px h-20 -translate-y-1/2" style={{ background: 'linear-gradient(to bottom, transparent, rgba(240,228,216,0.08), transparent)' }} />}
+                {i < 2 && <div className="hidden md:block absolute top-1/2 right-0 w-px h-20 -translate-y-1/2" style={{ background: 'linear-gradient(to bottom, transparent, rgba(28,17,10,0.10), transparent)' }} />}
                 <div className="w-16 h-16 rounded-2xl mx-auto mb-5 flex items-center justify-center" style={{ color: '#E84420', background: 'rgba(232,68,32,0.06)', border: '1px solid rgba(232,68,32,0.10)' }}>
                   {icon}
                 </div>
@@ -202,8 +202,8 @@ export default function HomePage() {
                     <svg key={j} className="w-4 h-4" style={{ color: '#D4A053' }} fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
                   ))}
                 </div>
-                <p className="text-sm leading-relaxed mb-6 font-light italic" style={{ color: 'rgba(240,228,216,0.55)' }}>"{r.text}"</p>
-                <div className="flex items-center gap-3 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+                <p className="text-sm leading-relaxed mb-6 font-light italic" style={{ color: '#5A3D2B' }}>"{r.text}"</p>
+                <div className="flex items-center gap-3 pt-4" style={{ borderTop: '1px solid rgba(28,17,10,0.07)' }}>
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold text-cream"
                     style={{ background: 'linear-gradient(135deg, rgba(232,68,32,0.12), rgba(212,160,83,0.12))' }}>
                     {r.name[0]}
@@ -240,7 +240,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <footer className="py-10 px-6 lg:px-16" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+      <footer className="py-10 px-6 lg:px-16" style={{ borderTop: '1px solid rgba(28,17,10,0.08)' }}>
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <span className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #C23610, #E84420)' }}>
