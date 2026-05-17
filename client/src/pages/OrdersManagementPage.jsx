@@ -46,7 +46,7 @@ export default function OrdersManagementPage() {
             {orders.map(order => {
               const sc = STATUS_COLORS[order.status] || STATUS_COLORS.pending;
               return (
-                <div key={order._id} className="rounded-2xl p-5" style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.05)' }}>
+                <div key={order._id} className="rounded-2xl p-5" style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.08)' }}>
                   <div className="flex items-start justify-between gap-4 mb-4">
                     <div>
                       <p className="text-xs text-cream-muted mb-1">Order ID</p>
@@ -70,7 +70,7 @@ export default function OrdersManagementPage() {
                   {order.items?.length > 0 && (
                     <div className="flex flex-wrap gap-2">
                       {order.items.map(item => (
-                        <span key={item._id} className="text-xs px-2.5 py-1 rounded-lg text-cream-dim" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                        <span key={item._id} className="text-xs px-2.5 py-1 rounded-lg text-cream-dim" style={{ background: 'rgba(28,17,10,0.04)', border: '1px solid rgba(28,17,10,0.08)' }}>
                           {item.productId?.name || 'Product'} × {item.quantity}
                         </span>
                       ))}

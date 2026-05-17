@@ -50,7 +50,7 @@ export default function ProductDetailPage() {
         </Link>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          <div className="rounded-2xl overflow-hidden aspect-square" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
+          <div className="rounded-2xl overflow-hidden aspect-square" style={{ background: 'rgba(28,17,10,0.03)', border: '1px solid rgba(28,17,10,0.08)' }}>
             {product.imageUrl ? (
               <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" />
             ) : (
