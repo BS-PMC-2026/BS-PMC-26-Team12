@@ -14,6 +14,7 @@ beforeEach(() => {
   jest.clearAllMocks();
 });
 
+// unit test
 // Checks that getUsers queries only visitor accounts
 test('getUsers returns visitors list', async () => {
   const req = {};
@@ -30,6 +31,7 @@ test('getUsers returns visitors list', async () => {
   expect(res.json).toHaveBeenCalledWith(users);
 });
 
+// unit test
 // Checks that deleteUser blocks deleting admin account
 test('deleteUser returns 403 when trying to delete admin', async () => {
   const req = { params: { id: 'admin-id' } };
@@ -43,6 +45,7 @@ test('deleteUser returns 403 when trying to delete admin', async () => {
   expect(res.json).toHaveBeenCalledWith({ message: 'Cannot delete admin account' });
 });
 
+// unit test
 // Checks that deleteUser deletes visitor and returns success message
 test('deleteUser deletes visitor account', async () => {
   const req = { params: { id: 'visitor-id' } };

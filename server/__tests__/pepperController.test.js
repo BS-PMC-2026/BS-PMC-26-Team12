@@ -26,6 +26,7 @@ beforeEach(() => {
   });
 });
 
+// unit test
 // Checks that addPepper returns 409 when name already exists
 test('addPepper returns 409 when duplicate pepper exists', async () => {
   const req = {
@@ -47,6 +48,7 @@ test('addPepper returns 409 when duplicate pepper exists', async () => {
   expect(res.json).toHaveBeenCalledWith({ message: 'A pepper with this name already exists' });
 });
 
+// unit test
 // Checks that addPepper creates a new pepper and trims text fields
 test('addPepper creates pepper and trims text fields', async () => {
   const req = {
@@ -81,6 +83,7 @@ test('addPepper creates pepper and trims text fields', async () => {
   expect(res.status).toHaveBeenCalledWith(201);
 });
 
+// unit test
 // Checks that getPeppers applies name regex when search is provided
 test('getPeppers applies name regex when search exists', async () => {
   const req = { query: { search: 'jal' } };
@@ -98,6 +101,7 @@ test('getPeppers applies name regex when search exists', async () => {
   expect(res.json).toHaveBeenCalledWith([{ name: 'Jalapeño' }]);
 });
 
+// unit test
 // Checks that updatePepper updates fields and saves the document
 test('updatePepper updates pepper fields and saves', async () => {
   const pepperDoc = {
