@@ -18,7 +18,7 @@ function TourCard({ tour, onBook }) {
   };
 
   return (
-    <div className="rounded-2xl p-6" style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)' }}>
+    <div className="rounded-2xl p-6" style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.08)' }}>
       <div className="flex items-start justify-between mb-3">
         <h3 className="font-bold text-cream text-lg font-display">{tour.title}</h3>
         <span className="text-lg font-bold text-fire-400">${tour.price.toFixed(2)}</span>
@@ -45,7 +45,7 @@ function TourCard({ tour, onBook }) {
           </button>
         </div>
       ) : (
-        <div className="py-2 text-center text-sm font-bold text-cream-muted rounded-xl" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>Fully Booked</div>
+        <div className="py-2 text-center text-sm font-bold text-cream-muted rounded-xl" style={{ background: 'rgba(28,17,10,0.04)', border: '1px solid rgba(28,17,10,0.08)' }}>Fully Booked</div>
       )}
     </div>
   );
@@ -85,14 +85,14 @@ export default function ToursPage() {
           <div className="flex gap-2 max-w-sm mx-auto">
             <input type="date" className="input-dark flex-1 !py-3" value={dateFilter} onChange={e => setDateFilter(e.target.value)} />
             <button onClick={() => load(dateFilter ? { date: dateFilter } : {})} className="px-5 py-3 text-sm font-bold rounded-xl text-white" style={{ background: 'linear-gradient(135deg, #2D6A1A, #52AB33)' }}>Filter</button>
-            {dateFilter && <button onClick={() => { setDateFilter(''); load(); }} className="px-4 py-3 text-sm rounded-xl text-cream-dim" style={{ border: '1px solid rgba(255,255,255,0.08)' }}>Clear</button>}
+            {dateFilter && <button onClick={() => { setDateFilter(''); load(); }} className="px-4 py-3 text-sm rounded-xl text-cream-dim" style={{ border: '1px solid rgba(28,17,10,0.12)' }}>Clear</button>}
           </div>
         </div>
       </div>
 
       <div className="max-w-5xl mx-auto px-6 lg:px-12 pb-20">
         {error && <p className="text-center text-cream-muted py-16">{error}</p>}
-        {loading && <div className="grid sm:grid-cols-2 gap-5">{Array.from({ length: 4 }).map((_, i) => <div key={i} className="rounded-2xl h-52 animate-pulse" style={{ background: 'rgba(255,255,255,0.025)' }} />)}</div>}
+        {loading && <div className="grid sm:grid-cols-2 gap-5">{Array.from({ length: 4 }).map((_, i) => <div key={i} className="rounded-2xl h-52 animate-pulse" style={{ background: 'rgba(28,17,10,0.05)' }} />)}</div>}
         {!loading && tours.length === 0 && <div className="text-center py-24 text-cream-muted">No upcoming tours available.</div>}
         {!loading && tours.length > 0 && (
           <div className="grid sm:grid-cols-2 gap-5">

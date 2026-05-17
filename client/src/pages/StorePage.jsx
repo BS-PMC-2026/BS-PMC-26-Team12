@@ -21,9 +21,9 @@ function ProductCard({ product, onAddToCart }) {
 
   return (
     <div className="rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02]"
-      style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)' }}>
+      style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.08)' }}>
       <Link to={`/store/${product._id}`}>
-        <div className="h-44 overflow-hidden relative" style={{ background: 'rgba(255,255,255,0.02)' }}>
+        <div className="h-44 overflow-hidden relative" style={{ background: 'rgba(28,17,10,0.03)' }}>
           {product.imageUrl ? (
             <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" />
           ) : (
@@ -32,8 +32,8 @@ function ProductCard({ product, onAddToCart }) {
             </div>
           )}
           {product.stock === 0 && (
-            <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'rgba(22,17,15,0.7)' }}>
-              <span className="text-xs font-bold text-cream-muted uppercase tracking-wider px-3 py-1.5 rounded-full" style={{ background: 'rgba(255,255,255,0.1)' }}>Out of Stock</span>
+            <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'rgba(28,17,10,0.55)' }}>
+              <span className="text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full" style={{ background: 'rgba(255,255,255,0.85)', color: '#5A3D2B' }}>Out of Stock</span>
             </div>
           )}
         </div>
@@ -111,9 +111,9 @@ export default function StorePage() {
         {cartError && <div className="mb-6 p-3 rounded-xl text-sm text-center" style={{ background: 'rgba(232,68,32,0.08)', color: '#E84420' }}>{cartError}</div>}
         {error && <p className="text-center text-cream-muted py-16">{error}</p>}
         {loading && <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">{Array.from({ length: 6 }).map((_, i) => (
-          <div key={i} className="rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.05)' }}>
-            <div className="h-44 animate-pulse" style={{ background: 'rgba(255,255,255,0.03)' }} />
-            <div className="p-5 space-y-3"><div className="h-5 rounded w-2/3 animate-pulse" style={{ background: 'rgba(255,255,255,0.05)' }} /></div>
+          <div key={i} className="rounded-2xl overflow-hidden" style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.08)' }}>
+            <div className="h-44 animate-pulse" style={{ background: 'rgba(28,17,10,0.04)' }} />
+            <div className="p-5 space-y-3"><div className="h-5 rounded w-2/3 animate-pulse" style={{ background: 'rgba(28,17,10,0.06)' }} /></div>
           </div>
         ))}</div>}
         {!loading && !error && products.length === 0 && (

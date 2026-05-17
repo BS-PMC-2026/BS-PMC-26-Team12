@@ -41,7 +41,7 @@ export default function CreateTourPage() {
           My Tours
         </Link>
 
-        <div className="rounded-2xl p-8" style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <div className="rounded-2xl p-8" style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.08)' }}>
           <h1 className="text-2xl font-bold text-cream font-display mb-2">Create New Tour</h1>
           <p className="text-cream-muted text-sm mb-8">Schedule a new guided farm tour for visitors.</p>
 
@@ -60,7 +60,7 @@ export default function CreateTourPage() {
             </div>
             <div className="pt-4 flex gap-3">
               <button type="submit" disabled={loading} className="flex-1 py-3 text-sm font-bold rounded-xl text-white disabled:opacity-50" style={{ background: 'linear-gradient(135deg, #2D6A1A, #52AB33)' }}>{loading ? 'Creating…' : 'Create Tour'}</button>
-              <Link to="/guide/tours" className="px-6 py-3 text-sm font-bold rounded-xl text-cream-dim text-center" style={{ border: '1px solid rgba(255,255,255,0.08)' }}>Cancel</Link>
+              <Link to="/guide/tours" className="px-6 py-3 text-sm font-bold rounded-xl text-cream-dim text-center" style={{ border: '1px solid rgba(28,17,10,0.10)' }}>Cancel</Link>
             </div>
           </form>
         </div>

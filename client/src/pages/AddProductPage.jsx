@@ -40,7 +40,7 @@ export default function AddProductPage() {
           Back to Products
         </Link>
 
-        <div className="rounded-2xl p-8" style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <div className="rounded-2xl p-8" style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.08)' }}>
           <h1 className="text-2xl font-bold text-cream font-display mb-2">Add New Product</h1>
           <p className="text-cream-muted text-sm mb-8">Fill in the details to add a product to the store.</p>
 
@@ -76,7 +76,7 @@ export default function AddProductPage() {
                 {loading ? 'Saving…' : 'Add Product'}
               </button>
               <Link to="/admin/products" className="px-6 py-3 text-sm font-bold rounded-xl text-cream-dim transition-all text-center"
-                style={{ border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.02)' }}>
+                style={{ border: '1px solid rgba(28,17,10,0.10)', background: 'transparent' }}>
                 Cancel
               </Link>
             </div>

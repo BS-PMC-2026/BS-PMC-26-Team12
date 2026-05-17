@@ -17,7 +17,7 @@ const HeatBar = ({ lv, c }) => (
     {Array.from({ length: 5 }).map((_, i) => (
       <div key={i} className="h-1.5 rounded-full transition-all" style={{
         width: i < lv ? 16 : 10,
-        background: i < lv ? c : 'rgba(255,255,255,0.06)',
+        background: i < lv ? c : 'rgba(28,17,10,0.10)',
         boxShadow: i < lv ? `0 0 6px ${c}40` : 'none',
       }} />
     ))}
@@ -26,12 +26,12 @@ const HeatBar = ({ lv, c }) => (
 
 function Skel() {
   return (
-    <div className="rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.05)' }}>
-      <div className="h-40 animate-pulse" style={{ background: 'rgba(255,255,255,0.03)' }} />
+    <div className="rounded-2xl overflow-hidden" style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.08)' }}>
+      <div className="h-40 animate-pulse" style={{ background: 'rgba(28,17,10,0.04)' }} />
       <div className="p-5 space-y-3">
-        <div className="h-5 rounded-lg w-2/3 animate-pulse" style={{ background: 'rgba(255,255,255,0.05)' }} />
-        <div className="h-3 rounded w-full animate-pulse" style={{ background: 'rgba(255,255,255,0.03)' }} />
-        <div className="h-3 rounded w-4/5 animate-pulse" style={{ background: 'rgba(255,255,255,0.03)' }} />
+        <div className="h-5 rounded-lg w-2/3 animate-pulse" style={{ background: 'rgba(28,17,10,0.06)' }} />
+        <div className="h-3 rounded w-full animate-pulse" style={{ background: 'rgba(28,17,10,0.04)' }} />
+        <div className="h-3 rounded w-4/5 animate-pulse" style={{ background: 'rgba(28,17,10,0.04)' }} />
       </div>
     </div>
   );
@@ -43,7 +43,7 @@ function Card({ pepper, idx }) {
   return (
     <Link to={`/peppers/${pepper._id}`}
       className="group rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:shadow-lift"
-      style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)', animation: `slideUp 0.4s ${idx * 0.06}s ease-out both` }}>
+      style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.08)', animation: `slideUp 0.4s ${idx * 0.06}s ease-out both` }}>
 
       <div className="relative h-44 overflow-hidden" style={{ background: `radial-gradient(ellipse at bottom, ${h.c}12, transparent)` }}>
         {pepper.imageUrl ? (
@@ -63,7 +63,7 @@ function Card({ pepper, idx }) {
             {h.label}
           </span>
         </div>
-        <div className="absolute bottom-0 inset-x-0 h-16" style={{ background: 'linear-gradient(transparent, rgba(22,17,15,0.9))' }} />
+        <div className="absolute bottom-0 inset-x-0 h-16" style={{ background: 'linear-gradient(transparent, rgba(28,17,10,0.06))' }} />
       </div>
 
       <div className="p-5">
@@ -75,7 +75,7 @@ function Card({ pepper, idx }) {
           <span className="text-[11px] text-cream-muted font-medium">{shuLabel}</span>
         </div>
 
-        <div className="flex items-center justify-between pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+        <div className="flex items-center justify-between pt-3" style={{ borderTop: '1px solid rgba(28,17,10,0.07)' }}>
           {pepper.origin && <span className="text-xs text-cream-muted flex items-center gap-1.5">
             <svg className="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
             {pepper.origin}
@@ -120,7 +120,7 @@ export default function PeppersPage() {
 
       <div className="relative overflow-hidden py-20 text-center px-6">
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 80%, rgba(194,54,16,0.12), transparent)' }} />
-        <div className="absolute inset-0 opacity-[0.015] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+        <div className="absolute inset-0 opacity-[0.5] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, rgba(28,17,10,0.07) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
 
         <div className="relative z-10 max-w-2xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-[0.3em] mb-5" style={{ color: '#D4A053', background: 'rgba(212,160,83,0.08)', border: '1px solid rgba(212,160,83,0.15)' }}>
@@ -178,13 +178,13 @@ export default function PeppersPage() {
                 <div className="flex gap-2 flex-wrap">
                   <button onClick={() => setActiveFilter(null)}
                     className="px-3.5 py-2 rounded-xl text-xs font-bold transition-all"
-                    style={!activeFilter ? { color: '#fff', background: 'linear-gradient(135deg, #C23610, #E84420)', boxShadow: '0 2px 10px rgba(232,68,32,0.2)' } : { color: 'rgba(240,228,216,0.4)', border: '1px solid rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.02)' }}>
+                    style={!activeFilter ? { color: '#fff', background: 'linear-gradient(135deg, #C23610, #E84420)', boxShadow: '0 2px 10px rgba(232,68,32,0.2)' } : { color: '#9B7260', border: '1px solid rgba(28,17,10,0.10)', background: 'transparent' }}>
                     All
                   </button>
                   {Object.entries(H).map(([k, v]) => (
                     <button key={k} onClick={() => setActiveFilter(activeFilter === k ? null : k)}
                       className="px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5"
-                      style={activeFilter === k ? { color: '#fff', background: v.gradient, boxShadow: `0 2px 10px ${v.c}30` } : { color: 'rgba(240,228,216,0.4)', border: '1px solid rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.02)' }}>
+                      style={activeFilter === k ? { color: '#fff', background: v.gradient, boxShadow: `0 2px 10px ${v.c}30` } : { color: '#9B7260', border: '1px solid rgba(28,17,10,0.10)', background: 'transparent' }}>
                       <span className="w-2 h-2 rounded-full" style={{ background: v.c }} /> {k}
                     </button>
                   ))}

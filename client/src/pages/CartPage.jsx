@@ -55,18 +55,18 @@ export default function CartPage() {
           <div className="grid lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2 space-y-3">
               {items.map(item => (
-                <div key={item._id} className="flex items-center gap-4 p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.05)' }}>
-                  <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0" style={{ background: 'rgba(255,255,255,0.03)' }}>
-                    {item.productId.imageUrl ? <img src={item.productId.imageUrl} alt={item.productId.name} className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center"><svg className="w-6 h-6" style={{ color: 'rgba(240,228,216,0.2)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg></div>}
+                <div key={item._id} className="flex items-center gap-4 p-4 rounded-xl" style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.08)' }}>
+                  <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0" style={{ background: 'rgba(28,17,10,0.04)' }}>
+                    {item.productId.imageUrl ? <img src={item.productId.imageUrl} alt={item.productId.name} className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center"><svg className="w-6 h-6" style={{ color: 'rgba(28,17,10,0.20)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg></div>}
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-bold text-cream truncate">{item.productId.name}</p>
                     <p className="text-sm text-fire-400">${item.productId.price.toFixed(2)} each</p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <button onClick={() => handleQtyChange(item, item.quantity - 1)} className="w-7 h-7 rounded-lg text-cream-dim flex items-center justify-center transition-colors hover:text-cream" style={{ background: 'rgba(255,255,255,0.05)' }}>−</button>
+                    <button onClick={() => handleQtyChange(item, item.quantity - 1)} className="w-7 h-7 rounded-lg text-cream-dim flex items-center justify-center transition-colors hover:text-cream" style={{ background: 'rgba(28,17,10,0.07)' }}>−</button>
                     <span className="w-8 text-center text-cream font-bold text-sm">{item.quantity}</span>
-                    <button onClick={() => handleQtyChange(item, item.quantity + 1)} className="w-7 h-7 rounded-lg text-cream-dim flex items-center justify-center transition-colors hover:text-cream" style={{ background: 'rgba(255,255,255,0.05)' }}>+</button>
+                    <button onClick={() => handleQtyChange(item, item.quantity + 1)} className="w-7 h-7 rounded-lg text-cream-dim flex items-center justify-center transition-colors hover:text-cream" style={{ background: 'rgba(28,17,10,0.07)' }}>+</button>
                   </div>
                   <p className="font-bold text-cream w-16 text-right">${(item.productId.price * item.quantity).toFixed(2)}</p>
                   <button onClick={() => handleRemove(item._id)} className="text-cream-muted hover:text-fire-400 transition-colors ml-1">
@@ -76,13 +76,13 @@ export default function CartPage() {
               ))}
             </div>
 
-            <div className="rounded-2xl p-6 h-fit" style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <div className="rounded-2xl p-6 h-fit" style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.08)' }}>
               <h2 className="text-lg font-bold text-cream font-display mb-5">Order Summary</h2>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-cream-dim text-sm">Subtotal ({items.length} item{items.length !== 1 ? 's' : ''})</span>
                 <span className="text-cream font-bold">${total.toFixed(2)}</span>
               </div>
-              <div className="my-4" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }} />
+              <div className="my-4" style={{ borderTop: '1px solid rgba(28,17,10,0.08)' }} />
               <div className="flex items-center justify-between mb-6">
                 <span className="text-cream font-bold">Total</span>
                 <span className="text-2xl font-bold text-fire-400">${total.toFixed(2)}</span>

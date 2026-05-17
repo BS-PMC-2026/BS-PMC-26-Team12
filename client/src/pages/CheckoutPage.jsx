@@ -51,7 +51,7 @@ export default function CheckoutPage() {
         {error && <div className="mb-6 p-4 rounded-xl text-sm" style={{ background: 'rgba(232,68,32,0.08)', color: '#E84420' }}>{error}</div>}
 
         <div className="grid lg:grid-cols-2 gap-10">
-          <div className="rounded-2xl p-6" style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)' }}>
+          <div className="rounded-2xl p-6" style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.08)' }}>
             <h2 className="text-lg font-bold text-cream font-display mb-5">Payment Details</h2>
             <div className="space-y-4">
               <div><label className="block text-xs font-bold text-cream-muted uppercase tracking-wider mb-1.5">Cardholder Name</label><input className="input-dark w-full" placeholder="John Doe" value={form.cardName} onChange={e => set('cardName', e.target.value)} /></div>
@@ -65,7 +65,7 @@ export default function CheckoutPage() {
           </div>
 
           <div>
-            <div className="rounded-2xl p-6 mb-4" style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <div className="rounded-2xl p-6 mb-4" style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.08)' }}>
               <h2 className="text-lg font-bold text-cream font-display mb-4">Order Summary</h2>
               <div className="space-y-3 mb-4">
                 {items.map(item => (
@@ -75,7 +75,7 @@ export default function CheckoutPage() {
                   </div>
                 ))}
               </div>
-              <div className="pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+              <div className="pt-4" style={{ borderTop: '1px solid rgba(28,17,10,0.08)' }}>
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-cream">Total</span>
                   <span className="text-2xl font-bold text-fire-400">${total.toFixed(2)}</span>
