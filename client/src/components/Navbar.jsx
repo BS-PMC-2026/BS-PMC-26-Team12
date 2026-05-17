@@ -6,6 +6,8 @@ const NAV_LINKS = {
   guest: [
     { label: 'Home', to: '/' },
     { label: 'Peppers', to: '/peppers' },
+    { label: 'Store', to: '/store' },
+    { label: 'Tours', to: '/tours' },
     { label: 'Login', to: '/login' },
     { label: 'Register', to: '/register', highlight: true },
   ],

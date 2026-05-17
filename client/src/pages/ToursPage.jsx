@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import { useAuth } from '../context/AuthContext';
 import { getTours } from '../api/tours';
 import { bookTour } from '../api/tourOrders';
 
@@ -52,6 +53,7 @@ function TourCard({ tour, onBook }) {
 }
 
 export default function ToursPage() {
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -67,6 +69,7 @@ export default function ToursPage() {
   useEffect(() => { load(); }, []);
 
   const handleBook = async (tourId, numberOfTickets) => {
+    if (!user) return navigate('/login');
     const { data } = await bookTour({ tourId, numberOfTickets });
     navigate('/tours/confirm', { state: { booking: data } });
   };
