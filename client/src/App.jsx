@@ -59,14 +59,16 @@ const AppRoutes = () => (
     <Route path="/guide/login"    element={<GuestRoute><GuideLogin /></GuestRoute>} />
     <Route path="/admin/login"    element={<GuestRoute><AdminLogin /></GuestRoute>} />
 
-    {/* Visitor */}
-    <Route path="/store"        element={<PrivateRoute roles={['visitor']}><StorePage /></PrivateRoute>} />
-    <Route path="/store/:id"    element={<PrivateRoute roles={['visitor']}><ProductDetailPage /></PrivateRoute>} />
-    <Route path="/cart"         element={<PrivateRoute roles={['visitor']}><CartPage /></PrivateRoute>} />
-    <Route path="/checkout"     element={<PrivateRoute roles={['visitor']}><CheckoutPage /></PrivateRoute>} />
-    <Route path="/tours"        element={<PrivateRoute roles={['visitor']}><ToursPage /></PrivateRoute>} />
+    {/* Public browsing — no login required */}
+    <Route path="/store"     element={<StorePage />} />
+    <Route path="/store/:id" element={<ProductDetailPage />} />
+    <Route path="/tours"     element={<ToursPage />} />
+
+    {/* Visitor — login required */}
+    <Route path="/cart"          element={<PrivateRoute roles={['visitor']}><CartPage /></PrivateRoute>} />
+    <Route path="/checkout"      element={<PrivateRoute roles={['visitor']}><CheckoutPage /></PrivateRoute>} />
     <Route path="/tours/confirm" element={<PrivateRoute roles={['visitor']}><BookingConfirmPage /></PrivateRoute>} />
-    <Route path="/my-bookings"  element={<PrivateRoute roles={['visitor']}><MyBookingsPage /></PrivateRoute>} />
+    <Route path="/my-bookings"   element={<PrivateRoute roles={['visitor']}><MyBookingsPage /></PrivateRoute>} />
 
     {/* Guide */}
     <Route path="/guide"              element={<PrivateRoute roles={['guide']}><GuideDashboard /></PrivateRoute>} />
