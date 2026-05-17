@@ -42,7 +42,9 @@ export default function CartPage() {
 
         {!loading && items.length === 0 && (
           <div className="text-center py-24">
-            <div className="text-6xl mb-5">🛒</div>
+            <div className="w-20 h-20 rounded-3xl mx-auto mb-5 flex items-center justify-center" style={{ background: 'rgba(212,160,83,0.08)' }}>
+              <svg className="w-9 h-9" style={{ color: '#D4A053' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+            </div>
             <h3 className="text-xl font-bold text-cream mb-2 font-display">Your cart is empty</h3>
             <p className="text-cream-muted text-sm mb-6">Browse our store to find something you like.</p>
             <Link to="/store" className="px-6 py-3 text-sm font-bold rounded-xl text-white" style={{ background: 'linear-gradient(135deg, #9A2B0D, #C23610)' }}>Go to Store</Link>
@@ -55,7 +57,7 @@ export default function CartPage() {
               {items.map(item => (
                 <div key={item._id} className="flex items-center gap-4 p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.05)' }}>
                   <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0" style={{ background: 'rgba(255,255,255,0.03)' }}>
-                    {item.productId.imageUrl ? <img src={item.productId.imageUrl} alt={item.productId.name} className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center text-2xl">📦</div>}
+                    {item.productId.imageUrl ? <img src={item.productId.imageUrl} alt={item.productId.name} className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center"><svg className="w-6 h-6" style={{ color: 'rgba(240,228,216,0.2)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg></div>}
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-bold text-cream truncate">{item.productId.name}</p>

@@ -50,8 +50,11 @@ function Card({ pepper, idx }) {
           <img src={pepper.imageUrl} alt={pepper.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
-            <div className="text-center">
-              <span className="text-6xl select-none block group-hover:scale-110 transition-transform duration-500">🌶️</span>
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500" style={{ background: `${h.c}12`, border: `1px solid ${h.c}18` }}>
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: h.c }}>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
+              </svg>
             </div>
           </div>
         )}
@@ -154,11 +157,13 @@ export default function PeppersPage() {
       </div>
 
       <div className="max-w-6xl mx-auto px-6 lg:px-12 pb-20">
-        {error && <div className="text-center py-16"><div className="w-20 h-20 rounded-3xl mx-auto mb-5 flex items-center justify-center text-4xl" style={{ background: 'rgba(232,68,32,0.08)' }}>⚠️</div><p className="text-cream-dim mb-4">{error}</p><button onClick={() => load()} className="btn-fire text-sm px-5 py-2.5">Try Again</button></div>}
+        {error && <div className="text-center py-16"><div className="w-20 h-20 rounded-3xl mx-auto mb-5 flex items-center justify-center" style={{ background: 'rgba(232,68,32,0.08)' }}><svg className="w-9 h-9" style={{ color: '#E84420' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg></div><p className="text-cream-dim mb-4">{error}</p><button onClick={() => load()} className="btn-fire text-sm px-5 py-2.5">Try Again</button></div>}
         {loading && <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">{Array.from({ length: 6 }).map((_, i) => <Skel key={i} />)}</div>}
         {!loading && !error && peppers.length === 0 && (
           <div className="text-center py-24">
-            <div className="w-24 h-24 rounded-3xl mx-auto mb-5 flex items-center justify-center text-5xl" style={{ background: 'rgba(232,68,32,0.06)' }}>🔍</div>
+            <div className="w-24 h-24 rounded-3xl mx-auto mb-5 flex items-center justify-center" style={{ background: 'rgba(212,160,83,0.06)' }}>
+              <svg className="w-11 h-11" style={{ color: '#D4A053' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+            </div>
             <h3 className="text-xl font-bold text-cream mb-2 font-display">No peppers found</h3>
             <p className="text-cream-muted text-sm">Try a different search term or check back later.</p>
           </div>

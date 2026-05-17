@@ -25,12 +25,14 @@ export default function GuideLogin() {
       <div className="hidden lg:flex lg:w-5/12 xl:w-[45%] flex-col items-center justify-center relative overflow-hidden">
         <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, #111A0D, #1A2A12, #111A0D)' }} />
         <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(82,171,51,0.10), transparent 70%)' }} />
-        <div className="absolute top-16 right-6 text-[120px] opacity-[0.06] rotate-[-10deg] animate-float select-none">🌱</div>
-        <div className="absolute bottom-20 left-8 text-[100px] opacity-[0.04] rotate-[8deg] animate-float-slow select-none">🌶️</div>
+        <div className="absolute top-16 right-6 w-40 h-40 opacity-[0.06] rotate-[-10deg] animate-float rounded-full" style={{ background: 'radial-gradient(circle, #52AB33, transparent 70%)' }} />
+        <div className="absolute bottom-20 left-8 w-32 h-32 opacity-[0.04] rotate-[8deg] animate-float-slow rounded-full" style={{ background: 'radial-gradient(circle, #E84420, transparent 70%)' }} />
         <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
 
         <div className="relative z-10 px-12 text-center max-w-md">
-          <div className="w-20 h-20 rounded-3xl mx-auto mb-8 flex items-center justify-center text-4xl" style={{ background: 'linear-gradient(135deg, #2D6A1A, #52AB33)', boxShadow: '0 0 40px rgba(82,171,51,0.15)' }}>🌿</div>
+          <div className="w-20 h-20 rounded-3xl mx-auto mb-8 flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #2D6A1A, #52AB33)', boxShadow: '0 0 40px rgba(82,171,51,0.15)' }}>
+            <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
+          </div>
           <h2 className="text-3xl font-bold text-cream mb-4 font-display tracking-tight">Guide Portal</h2>
           <p className="text-cream-dim text-sm leading-relaxed mb-10">Sign in to manage tours and access your guide dashboard.</p>
 
@@ -52,7 +54,10 @@ export default function GuideLogin() {
 
       <div className="flex-1 flex items-center justify-center px-6 py-12">
         <div className="w-full max-w-md">
-          <Link to="/" className="inline-flex items-center gap-2 text-fire-400 font-bold text-lg mb-8 lg:hidden">🌶️ Pepper Farm</Link>
+          <Link to="/" className="inline-flex items-center gap-2 text-fire-400 font-bold text-sm mb-8 lg:hidden">
+            <span className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #C23610, #E84420)' }}><svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" /></svg></span>
+            Pepper Farm
+          </Link>
 
           <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.015)' }}>
             <div className="h-[2px]" style={{ background: 'linear-gradient(90deg, #2D6A1A, #52AB33, #D4A053)' }} />
