@@ -54,7 +54,9 @@ export default function ProductDetailPage() {
             {product.imageUrl ? (
               <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" />
             ) : (
-              <div className="w-full h-full flex items-center justify-center text-8xl select-none">📦</div>
+              <div className="w-full h-full flex items-center justify-center">
+                <svg className="w-20 h-20" style={{ color: 'rgba(212,160,83,0.2)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={0.75} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
+              </div>
             )}
           </div>
 
