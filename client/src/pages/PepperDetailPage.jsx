@@ -79,8 +79,10 @@ export default function PepperDetailPage() {
       <Navbar />
 
       <div className="max-w-6xl mx-auto px-6 lg:px-12 py-10">
-        <Link to="/peppers" className="inline-flex items-center gap-2 text-sm font-medium text-cream-muted hover:text-fire-400 transition-colors mb-10 group">
-          <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+        <Link to="/peppers" className="inline-flex items-center gap-2.5 mb-10 text-sm font-medium transition-all group" style={{ color: '#9B7260' }}>
+          <span className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: 'rgba(28,17,10,0.06)', border: '1px solid rgba(28,17,10,0.09)' }}>
+            <svg className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/></svg>
+          </span>
           Back to Catalog
         </Link>
 

@@ -35,6 +35,12 @@ export default function CartPage() {
     <div className="min-h-screen bg-dark-300">
       <Navbar />
       <div className="max-w-4xl mx-auto px-6 lg:px-12 py-16">
+        <Link to="/store" className="inline-flex items-center gap-2.5 mb-8 text-sm font-medium transition-all group" style={{ color: '#9B7260' }}>
+          <span className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: 'rgba(28,17,10,0.06)', border: '1px solid rgba(28,17,10,0.09)' }}>
+            <svg className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/></svg>
+          </span>
+          Back to Store
+        </Link>
         <h1 className="text-3xl font-bold text-cream font-display mb-10">Your Cart</h1>
 
         {error && <div className="mb-6 p-4 rounded-xl text-sm" style={{ background: 'rgba(232,68,32,0.08)', color: '#E84420' }}>{error}</div>}
