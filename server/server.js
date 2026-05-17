@@ -5,20 +5,24 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-// Middleware
 app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 app.use(express.json());
 
-// Routes
+// Sprint 1
 app.use('/api/auth',    require('./routes/auth'));
 app.use('/api/peppers', require('./routes/peppers'));
 app.use('/api/guides',  require('./routes/guides'));
 app.use('/api/users',   require('./routes/users'));
 
-// Health check
+// Sprint 2
+app.use('/api/products',    require('./routes/products'));
+app.use('/api/tours',       require('./routes/tours'));
+app.use('/api/tour-orders', require('./routes/tourOrders'));
+app.use('/api/cart',        require('./routes/cart'));
+app.use('/api/orders',      require('./routes/orders'));
+
 app.get('/api/health', (_, res) => res.json({ status: 'ok' }));
 
-// Connect to MongoDB then start server
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
