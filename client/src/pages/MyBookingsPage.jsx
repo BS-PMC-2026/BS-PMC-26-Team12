@@ -43,7 +43,7 @@ export default function MyBookingsPage() {
               const tour = b.tourId;
               const isSelected = selected === b._id;
               return (
-                <div key={b._id} className="rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <div key={b._id} className="rounded-2xl overflow-hidden" style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.08)' }}>
                   <button className="w-full flex items-center justify-between p-5 text-left" onClick={() => setSelected(isSelected ? null : b._id)}>
                     <div>
                       <p className="font-bold text-cream text-lg font-display">{tour?.title || 'Tour'}</p>
@@ -58,7 +58,7 @@ export default function MyBookingsPage() {
                     </div>
                   </button>
                   {isSelected && (
-                    <div className="px-5 pb-5 pt-0 border-t" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+                    <div className="px-5 pb-5 pt-0 border-t" style={{ borderColor: 'rgba(28,17,10,0.08)' }}>
                       <div className="grid grid-cols-2 gap-3 text-sm pt-4">
                         <div><p className="text-cream-muted text-xs uppercase tracking-wider mb-1">Description</p><p className="text-cream-dim">{tour?.description || '—'}</p></div>
                         <div><p className="text-cream-muted text-xs uppercase tracking-wider mb-1">Status</p><p className="text-cream font-medium capitalize">{b.status}</p></div>

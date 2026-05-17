@@ -29,7 +29,7 @@ function EditModal({ tour, onSave, onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4" style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)' }}>
-      <div className="w-full max-w-lg rounded-2xl p-6" style={{ background: '#1A1410', border: '1px solid rgba(255,255,255,0.08)' }}>
+      <div className="w-full max-w-lg rounded-2xl p-6" style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.10)' }}>
         <h2 className="text-lg font-bold text-cream font-display mb-5">Edit Tour</h2>
         {error && <div className="mb-4 p-3 rounded-xl text-sm" style={{ background: 'rgba(232,68,32,0.08)', color: '#E84420' }}>{error}</div>}
         <div className="space-y-4">
@@ -46,7 +46,7 @@ function EditModal({ tour, onSave, onClose }) {
         </div>
         <div className="flex gap-3 mt-6">
           <button onClick={handleSave} disabled={loading} className="flex-1 py-2.5 text-sm font-bold rounded-xl text-white disabled:opacity-50" style={{ background: 'linear-gradient(135deg, #2D6A1A, #52AB33)' }}>{loading ? 'Saving…' : 'Save Changes'}</button>
-          <button onClick={onClose} className="px-5 py-2.5 text-sm font-bold rounded-xl text-cream-dim" style={{ border: '1px solid rgba(255,255,255,0.08)' }}>Cancel</button>
+          <button onClick={onClose} className="px-5 py-2.5 text-sm font-bold rounded-xl text-cream-dim" style={{ border: '1px solid rgba(28,17,10,0.10)' }}>Cancel</button>
         </div>
       </div>
     </div>
@@ -88,7 +88,7 @@ export default function MyToursPage() {
         {!loading && tours.length > 0 && (
           <div className="grid sm:grid-cols-2 gap-5">
             {tours.map(t => (
-              <div key={t._id} className="rounded-2xl p-5" style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)' }}>
+              <div key={t._id} className="rounded-2xl p-5" style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.08)' }}>
                 <h3 className="font-bold text-cream font-display text-lg mb-1">{t.title}</h3>
                 <p className="text-cream-dim text-sm line-clamp-2 mb-4">{t.description}</p>
                 <div className="flex flex-wrap gap-2 text-xs text-cream-muted mb-4">

@@ -60,9 +60,9 @@ export default function Navbar() {
       <nav className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
         scrolled ? 'py-2' : 'py-3'
       }`} style={{
-        background: scrolled ? 'rgba(22,17,15,0.92)' : 'rgba(22,17,15,0.6)',
+        background: scrolled ? 'rgba(250,250,247,0.96)' : 'rgba(250,250,247,0.82)',
         backdropFilter: 'blur(20px)',
-        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : '1px solid transparent',
+        borderBottom: scrolled ? '1px solid rgba(28,17,10,0.08)' : '1px solid transparent',
       }}>
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="flex items-center justify-between">
@@ -93,7 +93,7 @@ export default function Navbar() {
                 )
               )}
               {user && (
-                <div className="flex items-center gap-3 ml-4 pl-4" style={{ borderLeft: '1px solid rgba(255,255,255,0.08)' }}>
+                <div className="flex items-center gap-3 ml-4 pl-4" style={{ borderLeft: '1px solid rgba(28,17,10,0.10)' }}>
                   <div className="hidden lg:flex flex-col items-end leading-tight">
                     <span className="text-[13px] font-semibold text-cream">{user.fullName}</span>
                     <RolePill role={role} />
@@ -115,7 +115,7 @@ export default function Navbar() {
         </div>
 
         <div className={`md:hidden overflow-hidden transition-all duration-300 ${open ? 'max-h-[28rem] opacity-100' : 'max-h-0 opacity-0'}`}>
-          <div className="px-5 pb-4 pt-3 space-y-1 mt-2" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+          <div className="px-5 pb-4 pt-3 space-y-1 mt-2" style={{ borderTop: '1px solid rgba(28,17,10,0.08)' }}>
             {user && (
               <div className="flex items-center gap-3 px-3 py-3 mb-3 glass-card rounded-xl">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-sm" style={{ background: 'linear-gradient(135deg, #C23610, #E84420)' }}>
