@@ -1,16 +1,20 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import { useAuth } from '../context/AuthContext';
 import { getProduct } from '../api/products';
 import { addToCart } from '../api/cart';
 
 export default function ProductDetailPage() {
   const { id } = useParams();
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [adding, setAdding] = useState(false);
   const [added, setAdded] = useState(false);
+  const [buyingNow, setBuyingNow] = useState(false);
   const [cartError, setCartError] = useState('');
 
   useEffect(() => {
@@ -23,6 +27,7 @@ export default function ProductDetailPage() {
   }, [id]);
 
   const handleAddToCart = async () => {
+    if (!user) return navigate('/login');
     setAdding(true); setCartError('');
     try {
       await addToCart({ productId: id, quantity: 1 });
@@ -31,6 +36,17 @@ export default function ProductDetailPage() {
     } catch (err) {
       setCartError(err.response?.data?.message || 'Failed to add to cart.');
     } finally { setAdding(false); }
+  };
+
+  const handleBuyNow = async () => {
+    if (!user) return navigate('/login');
+    setBuyingNow(true); setCartError('');
+    try {
+      await addToCart({ productId: id, quantity: 1 });
+      navigate('/checkout');
+    } catch (err) {
+      setCartError(err.response?.data?.message || 'Failed to proceed to checkout.');
+    } finally { setBuyingNow(false); }
   };
 
   if (loading) return <div className="min-h-screen bg-dark-300 flex items-center justify-center"><div className="text-cream-muted">Loading…</div></div>;
@@ -77,7 +93,13 @@ export default function ProductDetailPage() {
               {added ? '✓ Added to Cart' : adding ? 'Adding…' : product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
             </button>
 
-            <Link to="/cart" className="mt-3 text-center text-sm text-cream-muted hover:text-cream transition-colors">View Cart →</Link>
+            <button onClick={handleBuyNow} disabled={buyingNow || product.stock === 0}
+              className="w-full py-4 text-base font-bold rounded-xl text-white transition-all disabled:opacity-40 mt-3"
+              style={{ background: 'linear-gradient(135deg, #2D6A1A, #52AB33)' }}>
+              {buyingNow ? 'Processing…' : product.stock === 0 ? 'Out of Stock' : 'Buy Now'}
+            </button>
+
+            {added && <Link to="/cart" className="mt-3 text-center text-sm text-cream-muted hover:text-cream transition-colors block">View Cart →</Link>}
           </div>
         </div>
       </div>
