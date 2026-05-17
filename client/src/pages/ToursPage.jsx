@@ -25,11 +25,12 @@ function TourCard({ tour, onBook }) {
       </div>
       <p className="text-cream-dim text-sm leading-relaxed line-clamp-2 mb-4">{tour.description}</p>
       <div className="flex flex-wrap gap-3 mb-4 text-xs text-cream-muted">
-        <span className="flex items-center gap-1">📅 {new Date(tour.date).toLocaleDateString()}</span>
-        <span className="flex items-center gap-1">🕐 {tour.time}</span>
-        <span className="flex items-center gap-1">👤 {tour.guideId?.fullName || 'Guide'}</span>
-        <span className="flex items-center gap-1" style={{ color: available > 0 ? '#52AB33' : '#E84420' }}>
-          🎟️ {available} slot{available !== 1 ? 's' : ''} left
+        <span className="flex items-center gap-1.5"><svg className="w-3.5 h-3.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>{new Date(tour.date).toLocaleDateString()}</span>
+        <span className="flex items-center gap-1.5"><svg className="w-3.5 h-3.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>{tour.time}</span>
+        <span className="flex items-center gap-1.5"><svg className="w-3.5 h-3.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>{tour.guideId?.fullName || 'Guide'}</span>
+        <span className="flex items-center gap-1.5" style={{ color: available > 0 ? '#52AB33' : '#E84420' }}>
+          <svg className="w-3.5 h-3.5 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" /></svg>
+          {available} slot{available !== 1 ? 's' : ''} left
         </span>
       </div>
       {error && <p className="text-xs mb-3" style={{ color: '#E84420' }}>{error}</p>}

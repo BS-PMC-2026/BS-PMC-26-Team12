@@ -3,10 +3,10 @@ import Navbar from '../components/Navbar';
 import { useAuth } from '../context/AuthContext';
 
 const SHOWCASE = [
-  { name: 'Ghost Pepper', emoji: '👻', shu: '1,041,427', heat: 5, tag: 'Extreme', c: '#9A2B0D' },
-  { name: 'Habanero', emoji: '🔥', shu: '350,000', heat: 4, tag: 'Very Hot', c: '#E84420' },
-  { name: 'Jalapeño', emoji: '🌿', shu: '8,000', heat: 2, tag: 'Medium', c: '#D4A053' },
-  { name: 'Bell Pepper', emoji: '🫑', shu: '0', heat: 0, tag: 'Sweet', c: '#52AB33' },
+  { name: 'Ghost Pepper', shu: '1,041,427', heat: 5, tag: 'Extreme', c: '#9A2B0D' },
+  { name: 'Habanero', shu: '350,000', heat: 4, tag: 'Very Hot', c: '#E84420' },
+  { name: 'Jalapeño', shu: '8,000', heat: 2, tag: 'Medium', c: '#D4A053' },
+  { name: 'Bell Pepper', shu: '0', heat: 0, tag: 'Sweet', c: '#52AB33' },
 ];
 
 const REVIEWS = [
@@ -78,7 +78,12 @@ export default function HomePage() {
                   <div key={p.name} className={`glass-card p-5 hover:scale-[1.03] cursor-default transition-all ${i % 2 === 1 ? 'mt-6' : ''}`}
                     style={{ animation: `slideUp 0.5s ${i * 0.12}s ease-out both` }}>
                     <div className="flex items-start justify-between mb-3">
-                      <span className="text-3xl">{p.emoji}</span>
+                      <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: `${p.c}14`, border: `1px solid ${p.c}22` }}>
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: p.c }}>
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
+                        </svg>
+                      </div>
                       <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ color: p.c, background: `${p.c}12` }}>{p.tag}</span>
                     </div>
                     <h3 className="font-bold text-cream text-sm mb-1">{p.name}</h3>
@@ -216,7 +221,7 @@ export default function HomePage() {
 
       <section className="py-28 px-6 lg:px-16 relative overflow-hidden">
         <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 60% 60% at 50% 50%, rgba(194,54,16,0.12), transparent)' }} />
-        <div className="absolute top-0 left-1/4 text-[250px] opacity-[0.03] select-none animate-float-slow">🌶️</div>
+        <div className="absolute top-0 left-1/4 w-[400px] h-[400px] opacity-[0.04] select-none animate-float-slow" style={{ background: 'radial-gradient(circle, #E84420, transparent 70%)' }} />
         <div className="relative z-10 max-w-3xl mx-auto text-center">
           <h2 className="text-4xl lg:text-5xl font-bold tracking-tight mb-5">
             <span className="text-cream">Ready to</span>{' '}
@@ -238,7 +243,11 @@ export default function HomePage() {
       <footer className="py-10 px-6 lg:px-16" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}>
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <span className="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style={{ background: 'linear-gradient(135deg, #C23610, #E84420)' }}>🌶️</span>
+            <span className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #C23610, #E84420)' }}>
+              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+              </svg>
+            </span>
             <span className="font-bold text-cream text-sm">Pepper Farm</span>
           </div>
           <p className="text-xs text-cream-muted">© 2026 Hadinarim Pepper Farm — The Dinars</p>

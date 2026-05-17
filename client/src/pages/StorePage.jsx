@@ -27,7 +27,9 @@ function ProductCard({ product, onAddToCart }) {
           {product.imageUrl ? (
             <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-5xl select-none">🛒</div>
+            <div className="w-full h-full flex items-center justify-center">
+              <svg className="w-12 h-12" style={{ color: 'rgba(212,160,83,0.3)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+            </div>
           )}
           {product.stock === 0 && (
             <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'rgba(22,17,15,0.7)' }}>
