@@ -18,7 +18,7 @@ function createRes() {
 
 beforeEach(() => jest.clearAllMocks());
 
-// unit test
+// unit test 1
 test('getProducts returns all products without authentication', async () => {
   const req = { query: {} };
   const res = createRes();
