@@ -7,10 +7,24 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "seed": "node seed.js",
-    "test": "jest --runInBand --passWithNoTests"
+    "test": "jest --runInBand --passWithNoTests",
+    "test:coverage": "jest --runInBand --coverage"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "setupFiles": ["./jest.setup.js"],
+    "collectCoverageFrom": [
+      "controllers/**/*.js",
+      "middleware/**/*.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "lines": 70,
+        "functions": 70,
+        "statements": 70,
+        "branches": 60
+      }
+    }
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

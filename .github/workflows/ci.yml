@@ -31,7 +31,7 @@ jobs:
       - name: Run server tests
         if: hashFiles('server/package.json') != ''
         working-directory: server
-        run: npm test
+        run: npm run test:coverage
 
       - name: Build client
         if: hashFiles('client/package.json') != '' && github.ref == 'refs/heads/main'
