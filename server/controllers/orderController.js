@@ -5,8 +5,16 @@ const OrderItem = require('../models/OrderItem');
 
 exports.checkout = async (req, res) => {
   try {
-    const cartItems = await CartItem.find({ userId: req.user.id }).populate('productId');
+    const { selectedItemIds } = req.body;
+
+    let cartItems = await CartItem.find({ userId: req.user.id }).populate('productId');
     if (!cartItems.length) return res.status(400).json({ message: 'Cart is empty' });
+
+    if (selectedItemIds?.length) {
+      cartItems = cartItems.filter(item => selectedItemIds.includes(item._id.toString()));
+      if (!cartItems.length)
+        return res.status(400).json({ message: 'None of the selected items were found in your cart' });
+    }
 
     for (const item of cartItems) {
       if (item.productId.stock < item.quantity)
@@ -28,7 +36,7 @@ exports.checkout = async (req, res) => {
     for (const item of cartItems) {
       await Product.findByIdAndUpdate(item.productId._id, { $inc: { stock: -item.quantity } });
     }
-    await CartItem.deleteMany({ userId: req.user.id });
+    await CartItem.deleteMany({ _id: { $in: cartItems.map(i => i._id) } });
 
     res.status(201).json({ order, orderItems });
   } catch (err) {
