@@ -5,7 +5,7 @@ const OrderItem = require('../models/OrderItem');
 
 exports.checkout = async (req, res) => {
   try {
-    const { selectedItemIds } = req.body;
+    const selectedItemIds = req.body?.selectedItemIds;
 
     let cartItems = await CartItem.find({ userId: req.user.id }).populate('productId');
     if (!cartItems.length) return res.status(400).json({ message: 'Cart is empty' });

@@ -36,7 +36,7 @@ test('checkout: 400 when a product has insufficient stock', async () => {
 });
 
 test('checkout: 201 with order on success', async () => {
-  const items = [{ productId: { _id: 'p1', name: 'Sauce', price: 10, stock: 5 }, quantity: 2 }];
+  const items = [{ _id: 'c1', productId: { _id: 'p1', name: 'Sauce', price: 10, stock: 5 }, quantity: 2 }];
   CartItem.find.mockReturnValue({ populate: jest.fn().mockResolvedValue(items) });
   const order = { _id: 'o1', userId: 'u1', totalAmount: 20 };
   Order.create.mockResolvedValue(order);
@@ -47,7 +47,7 @@ test('checkout: 201 with order on success', async () => {
   await checkout({ user: { id: 'u1' } }, r);
   expect(r.status).toHaveBeenCalledWith(201);
   expect(Order.create).toHaveBeenCalled();
-  expect(CartItem.deleteMany).toHaveBeenCalledWith({ userId: 'u1' });
+  expect(CartItem.deleteMany).toHaveBeenCalledWith({ _id: { $in: ['c1'] } });
 });
 
 // getOrders
