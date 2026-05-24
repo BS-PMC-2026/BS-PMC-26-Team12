@@ -16,6 +16,7 @@ const NAV_LINKS = {
     { label: 'Peppers', to: '/peppers' },
     { label: 'Store', to: '/store' },
     { label: 'Cart', to: '/cart' },
+    { label: 'My Orders', to: '/my-orders' },
     { label: 'Tours', to: '/tours' },
     { label: 'My Bookings', to: '/my-bookings' },
   ],
