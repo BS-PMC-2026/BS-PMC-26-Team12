@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { getCart } from '../api/cart';
 import { checkout } from '../api/orders';
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
+  const { state } = useLocation();
+  const selectedItemIds = state?.selectedItemIds;
+
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [placing, setPlacing] = useState(false);
@@ -15,22 +18,30 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     const load = async () => {
-      try { const { data } = await getCart(); setItems(data); if (!data.length) navigate('/cart'); }
-      catch { setError('Failed to load cart.'); }
+      try {
+        const { data } = await getCart();
+        if (!data.length) { navigate('/cart'); return; }
+        setItems(data);
+      } catch { setError('Failed to load cart.'); }
       finally { setLoading(false); }
     };
     load();
   }, [navigate]);
 
-  const total = items.reduce((sum, item) => sum + item.productId.price * item.quantity, 0);
+  // Only show items that were selected in the cart
+  const displayItems = selectedItemIds?.length
+    ? items.filter(i => selectedItemIds.includes(i._id))
+    : items;
+
+  const total = displayItems.reduce((sum, item) => sum + item.productId.price * item.quantity, 0);
 
   const handlePlaceOrder = async () => {
     if (!form.cardName || !form.cardNumber || !form.expiry || !form.cvv || !form.address)
       return setError('Please fill in all payment details.');
     setPlacing(true); setError('');
     try {
-      const { data } = await checkout();
-      navigate('/order-success', { state: { order: data.order, items } });
+      const { data } = await checkout(selectedItemIds);
+      navigate('/order-success', { state: { order: data.order, items: displayItems } });
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to place order.');
     } finally { setPlacing(false); }
@@ -53,27 +64,51 @@ export default function CheckoutPage() {
         {error && <div className="mb-6 p-4 rounded-xl text-sm" style={{ background: 'rgba(232,68,32,0.08)', color: '#E84420' }}>{error}</div>}
 
         <div className="grid lg:grid-cols-2 gap-10">
+          {/* Payment form */}
           <div className="rounded-2xl p-6" style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.08)' }}>
             <h2 className="text-lg font-bold text-cream font-display mb-5">Payment Details</h2>
             <div className="space-y-4">
-              <div><label className="block text-xs font-bold text-cream-muted uppercase tracking-wider mb-1.5">Cardholder Name</label><input className="input-dark w-full" placeholder="John Doe" value={form.cardName} onChange={e => set('cardName', e.target.value)} /></div>
-              <div><label className="block text-xs font-bold text-cream-muted uppercase tracking-wider mb-1.5">Card Number</label><input className="input-dark w-full" placeholder="1234 5678 9012 3456" maxLength={19} value={form.cardNumber} onChange={e => set('cardNumber', e.target.value)} /></div>
-              <div className="grid grid-cols-2 gap-4">
-                <div><label className="block text-xs font-bold text-cream-muted uppercase tracking-wider mb-1.5">Expiry</label><input className="input-dark w-full" placeholder="MM/YY" maxLength={5} value={form.expiry} onChange={e => set('expiry', e.target.value)} /></div>
-                <div><label className="block text-xs font-bold text-cream-muted uppercase tracking-wider mb-1.5">CVV</label><input className="input-dark w-full" placeholder="123" maxLength={4} value={form.cvv} onChange={e => set('cvv', e.target.value)} /></div>
+              <div>
+                <label className="block text-xs font-bold text-cream-muted uppercase tracking-wider mb-1.5">Cardholder Name</label>
+                <input className="input-dark w-full" placeholder="John Doe" value={form.cardName} onChange={e => set('cardName', e.target.value)} />
               </div>
-              <div><label className="block text-xs font-bold text-cream-muted uppercase tracking-wider mb-1.5">Billing Address</label><textarea className="input-dark w-full resize-none" rows={2} placeholder="123 Main St, City, Country" value={form.address} onChange={e => set('address', e.target.value)} /></div>
+              <div>
+                <label className="block text-xs font-bold text-cream-muted uppercase tracking-wider mb-1.5">Card Number</label>
+                <input className="input-dark w-full" placeholder="1234 5678 9012 3456" maxLength={19} value={form.cardNumber} onChange={e => set('cardNumber', e.target.value)} />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-cream-muted uppercase tracking-wider mb-1.5">Expiry</label>
+                  <input className="input-dark w-full" placeholder="MM/YY" maxLength={5} value={form.expiry} onChange={e => set('expiry', e.target.value)} />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-cream-muted uppercase tracking-wider mb-1.5">CVV</label>
+                  <input className="input-dark w-full" placeholder="123" maxLength={4} value={form.cvv} onChange={e => set('cvv', e.target.value)} />
+                </div>
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-cream-muted uppercase tracking-wider mb-1.5">Billing Address</label>
+                <textarea className="input-dark w-full resize-none" rows={2} placeholder="123 Main St, City, Country" value={form.address} onChange={e => set('address', e.target.value)} />
+              </div>
             </div>
           </div>
 
+          {/* Order summary */}
           <div>
             <div className="rounded-2xl p-6 mb-4" style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.08)' }}>
-              <h2 className="text-lg font-bold text-cream font-display mb-4">Order Summary</h2>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-bold text-cream font-display">Order Summary</h2>
+                {selectedItemIds?.length && (
+                  <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ color: '#D4A053', background: 'rgba(212,160,83,0.1)' }}>
+                    {selectedItemIds.length} item{selectedItemIds.length !== 1 ? 's' : ''} selected
+                  </span>
+                )}
+              </div>
               <div className="space-y-3 mb-4">
-                {items.map(item => (
-                  <div key={item._id} className="flex items-center justify-between">
-                    <span className="text-sm text-cream-dim">{item.productId.name} × {item.quantity}</span>
-                    <span className="text-sm font-bold text-cream">${(item.productId.price * item.quantity).toFixed(2)}</span>
+                {displayItems.map(item => (
+                  <div key={item._id} className="flex items-center justify-between gap-2">
+                    <span className="text-sm text-cream-dim truncate">{item.productId.name} × {item.quantity}</span>
+                    <span className="text-sm font-bold text-cream flex-shrink-0">${(item.productId.price * item.quantity).toFixed(2)}</span>
                   </div>
                 ))}
               </div>
