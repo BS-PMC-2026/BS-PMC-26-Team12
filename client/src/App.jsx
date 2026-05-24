@@ -23,6 +23,7 @@ import AddProductPage        from './pages/AddProductPage';
 import ManageProductsPage    from './pages/ManageProductsPage';
 import OrdersManagementPage  from './pages/OrdersManagementPage';
 import ToursPage             from './pages/ToursPage';
+import TourCheckoutPage      from './pages/TourCheckoutPage';
 import BookingConfirmPage    from './pages/BookingConfirmPage';
 import MyBookingsPage        from './pages/MyBookingsPage';
 import CreateTourPage        from './pages/guide/CreateTourPage';
@@ -65,9 +66,10 @@ const AppRoutes = () => (
     <Route path="/tours"     element={<ToursPage />} />
 
     {/* Visitor — login required */}
-    <Route path="/cart"          element={<PrivateRoute roles={['visitor']}><CartPage /></PrivateRoute>} />
-    <Route path="/checkout"      element={<PrivateRoute roles={['visitor']}><CheckoutPage /></PrivateRoute>} />
-    <Route path="/tours/confirm" element={<PrivateRoute roles={['visitor']}><BookingConfirmPage /></PrivateRoute>} />
+    <Route path="/cart"            element={<PrivateRoute roles={['visitor']}><CartPage /></PrivateRoute>} />
+    <Route path="/checkout"        element={<PrivateRoute roles={['visitor']}><CheckoutPage /></PrivateRoute>} />
+    <Route path="/tours/checkout"  element={<PrivateRoute roles={['visitor']}><TourCheckoutPage /></PrivateRoute>} />
+    <Route path="/tours/confirm"   element={<PrivateRoute roles={['visitor']}><BookingConfirmPage /></PrivateRoute>} />
     <Route path="/my-bookings"   element={<PrivateRoute roles={['visitor']}><MyBookingsPage /></PrivateRoute>} />
 
     {/* Guide */}

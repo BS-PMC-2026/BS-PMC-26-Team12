@@ -3,19 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { useAuth } from '../context/AuthContext';
 import { getTours } from '../api/tours';
-import { bookTour } from '../api/tourOrders';
 
 function TourCard({ tour, onBook }) {
   const [tickets, setTickets] = useState(1);
-  const [booking, setBooking] = useState(false);
   const [error, setError] = useState('');
   const available = tour.maxParticipants - tour.bookedSlots;
 
-  const handleBook = async () => {
+  const handleBook = () => {
     if (tickets < 1 || tickets > available) return setError(`Max ${available} tickets available.`);
-    setBooking(true); setError('');
-    try { await onBook(tour._id, tickets); }
-    catch (err) { setError(err.response?.data?.message || 'Booking failed.'); setBooking(false); }
+    onBook(tour, tickets);
   };
 
   return (
@@ -39,10 +35,10 @@ function TourCard({ tour, onBook }) {
         <div className="flex gap-2">
           <input type="number" min={1} max={available} value={tickets} onChange={e => setTickets(Number(e.target.value))}
             className="input-dark w-20 !py-2 !text-sm" />
-          <button onClick={handleBook} disabled={booking}
-            className="flex-1 py-2 text-sm font-bold rounded-xl text-white disabled:opacity-50 transition-all"
+          <button onClick={handleBook}
+            className="flex-1 py-2 text-sm font-bold rounded-xl text-white transition-all"
             style={{ background: 'linear-gradient(135deg, #9A2B0D, #C23610)' }}>
-            {booking ? 'Booking…' : 'Book Now'}
+            Book Now
           </button>
         </div>
       ) : (
@@ -68,10 +64,9 @@ export default function ToursPage() {
   };
   useEffect(() => { load(); }, []);
 
-  const handleBook = async (tourId, numberOfTickets) => {
+  const handleBook = (tour, numberOfTickets) => {
     if (!user) return navigate('/login');
-    const { data } = await bookTour({ tourId, numberOfTickets });
-    navigate('/tours/confirm', { state: { booking: data } });
+    navigate('/tours/checkout', { state: { tour, numberOfTickets } });
   };
 
   return (
