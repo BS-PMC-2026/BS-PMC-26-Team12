@@ -29,8 +29,8 @@ export default function CheckoutPage() {
       return setError('Please fill in all payment details.');
     setPlacing(true); setError('');
     try {
-      await checkout();
-      navigate('/store', { state: { orderSuccess: true } });
+      const { data } = await checkout();
+      navigate('/order-success', { state: { order: data.order, items } });
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to place order.');
     } finally { setPlacing(false); }
