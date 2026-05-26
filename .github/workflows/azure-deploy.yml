@@ -20,15 +20,15 @@ jobs:
           node-version: '22'
 
       - name: Install server dependencies
-        working-directory: "Peppers Market/server"
+        working-directory: "server"
         run: npm install
 
       - name: Install client dependencies
-        working-directory: "Peppers Market/client"
+        working-directory: "client"
         run: npm install
 
       - name: Build client
-        working-directory: "Peppers Market/client"
+        working-directory: "client"
         run: npm run build
 
       - name: Deploy to Azure Web App
