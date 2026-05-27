@@ -21,6 +21,9 @@ app.use('/api/tours',       require('./routes/tours'));
 app.use('/api/tour-orders', require('./routes/tourOrders'));
 app.use('/api/cart',        require('./routes/cart'));
 app.use('/api/orders',      require('./routes/orders'));
+app.use('/api/feedback',    require('./routes/feedback'));
+app.use('/api/issues',      require('./routes/issues'));
+app.use('/api/favorites',   require('./routes/favorites'));
 
 app.get('/api/health', (_, res) => res.json({ status: 'ok' }));
 
