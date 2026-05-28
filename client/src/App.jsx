@@ -30,6 +30,8 @@ import MyOrdersPage          from './pages/MyOrdersPage';
 import OrderSuccessPage      from './pages/OrderSuccessPage';
 import CreateTourPage        from './pages/guide/CreateTourPage';
 import MyToursPage           from './pages/guide/MyToursPage';
+import GuidePastToursPage    from './pages/GuidePastToursPage';
+import MyFavoritesPage       from './pages/MyFavoritesPage';
 
 const PrivateRoute = ({ children, roles }) => {
   const { user } = useAuth();
@@ -75,11 +77,13 @@ const AppRoutes = () => (
     <Route path="/tours/checkout"  element={<PrivateRoute roles={['visitor']}><TourCheckoutPage /></PrivateRoute>} />
     <Route path="/tours/confirm"   element={<PrivateRoute roles={['visitor']}><BookingConfirmPage /></PrivateRoute>} />
     <Route path="/my-bookings"     element={<PrivateRoute roles={['visitor']}><MyBookingsPage /></PrivateRoute>} />
+    <Route path="/favorites"       element={<PrivateRoute roles={['visitor']}><MyFavoritesPage /></PrivateRoute>} />
 
     {/* Guide */}
     <Route path="/guide"              element={<PrivateRoute roles={['guide']}><GuideDashboard /></PrivateRoute>} />
     <Route path="/guide/tours"        element={<PrivateRoute roles={['guide']}><MyToursPage /></PrivateRoute>} />
     <Route path="/guide/tours/create" element={<PrivateRoute roles={['guide']}><CreateTourPage /></PrivateRoute>} />
+    <Route path="/guide/past-tours"  element={<PrivateRoute roles={['guide']}><GuidePastToursPage /></PrivateRoute>} />
 
     {/* Admin */}
     <Route path="/admin"          element={<PrivateRoute roles={['admin']}><AdminDashboard /></PrivateRoute>} />

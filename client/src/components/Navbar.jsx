@@ -18,6 +18,7 @@ const NAV_LINKS = {
     { label: 'Cart', to: '/cart' },
     { label: 'My Orders', to: '/my-orders' },
     { label: 'Tours', to: '/tours' },
+    { label: 'Favorites', to: '/favorites' },
     { label: 'My Bookings', to: '/my-bookings' },
   ],
   guide: [
@@ -25,6 +26,7 @@ const NAV_LINKS = {
     { label: 'My Profile', to: '/guide' },
     { label: 'My Tours', to: '/guide/tours' },
     { label: 'Create Tour', to: '/guide/tours/create' },
+    { label: 'Past Tours', to: '/guide/past-tours' },
   ],
   admin: [
     { label: 'Admin Panel', to: '/admin' },
