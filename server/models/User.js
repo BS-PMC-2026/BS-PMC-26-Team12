@@ -5,7 +5,8 @@ const userSchema = new mongoose.Schema(
     fullName: { type: String, required: true, trim: true },
     email:    { type: String, required: true, unique: true, lowercase: true, trim: true },
     password: { type: String, required: true },
-    role:     { type: String, enum: ['visitor', 'admin'], default: 'visitor' },
+    role:      { type: String, enum: ['visitor', 'admin'], default: 'visitor' },
+    favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tour' }],
   },
   { timestamps: true }
 );

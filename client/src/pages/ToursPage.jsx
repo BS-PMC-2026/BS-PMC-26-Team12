@@ -3,10 +3,27 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { useAuth } from '../context/AuthContext';
 import { getTours } from '../api/tours';
+import { getFavorites, addFavorite, removeFavorite } from '../api/favorites';
 
-function TourCard({ tour, onBook }) {
+function HeartButton({ isFav, onClick, disabled }) {
+  return (
+    <button
+      onClick={e => { e.stopPropagation(); onClick(); }}
+      disabled={disabled}
+      title={isFav ? 'Remove from favorites' : 'Save to favorites'}
+      className="p-2 rounded-xl transition-all hover:scale-110 disabled:opacity-40"
+      style={{ background: isFav ? 'rgba(232,68,32,0.08)' : 'rgba(28,17,10,0.04)', border: `1px solid ${isFav ? 'rgba(232,68,32,0.2)' : 'rgba(28,17,10,0.08)'}` }}>
+      <svg className="w-4 h-4" fill={isFav ? '#E84420' : 'none'} stroke={isFav ? '#E84420' : 'currentColor'} strokeWidth={2} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+      </svg>
+    </button>
+  );
+}
+
+function TourCard({ tour, onBook, isFav, onToggleFav, isVisitor }) {
   const [tickets, setTickets] = useState(1);
   const [error, setError] = useState('');
+  const [toggling, setToggling] = useState(false);
   const available = tour.maxParticipants - tour.bookedSlots;
 
   const handleBook = () => {
@@ -14,11 +31,20 @@ function TourCard({ tour, onBook }) {
     onBook(tour, tickets);
   };
 
+  const handleFav = async () => {
+    setToggling(true);
+    try { await onToggleFav(tour._id, isFav); }
+    finally { setToggling(false); }
+  };
+
   return (
-    <div className="rounded-2xl p-6" style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.08)' }}>
+    <div className="rounded-2xl p-6 relative" style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.08)' }}>
       <div className="flex items-start justify-between mb-3">
-        <h3 className="font-bold text-cream text-lg font-display">{tour.title}</h3>
-        <span className="text-lg font-bold text-fire-400">${tour.price.toFixed(2)}</span>
+        <h3 className="font-bold text-cream text-lg font-display pr-2">{tour.title}</h3>
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <span className="text-lg font-bold text-fire-400">${tour.price.toFixed(2)}</span>
+          {isVisitor && <HeartButton isFav={isFav} onClick={handleFav} disabled={toggling} />}
+        </div>
       </div>
       <p className="text-cream-dim text-sm leading-relaxed line-clamp-2 mb-4">{tour.description}</p>
       <div className="flex flex-wrap gap-3 mb-4 text-xs text-cream-muted">
@@ -52,9 +78,11 @@ export default function ToursPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
+  const [favIds, setFavIds] = useState(new Set());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [dateFilter, setDateFilter] = useState('');
+  const isVisitor = user?.role === 'visitor';
 
   const load = async (params = {}) => {
     setLoading(true); setError('');
@@ -62,11 +90,30 @@ export default function ToursPage() {
     catch { setError('Failed to load tours.'); }
     finally { setLoading(false); }
   };
-  useEffect(() => { load(); }, []);
+
+  useEffect(() => {
+    load();
+    if (isVisitor) {
+      getFavorites().then(({ data }) => setFavIds(new Set(data.map(t => t._id)))).catch(() => {});
+    }
+  }, [isVisitor]);
 
   const handleBook = (tour, numberOfTickets) => {
     if (!user) return navigate('/login');
     navigate('/tours/checkout', { state: { tour, numberOfTickets } });
+  };
+
+  const handleToggleFav = async (tourId, isFav) => {
+    if (!user) return navigate('/login');
+    try {
+      if (isFav) {
+        await removeFavorite(tourId);
+        setFavIds(prev => { const n = new Set(prev); n.delete(tourId); return n; });
+      } else {
+        await addFavorite(tourId);
+        setFavIds(prev => new Set([...prev, tourId]));
+      }
+    } catch {}
   };
 
   return (
@@ -94,7 +141,16 @@ export default function ToursPage() {
         {!loading && tours.length === 0 && <div className="text-center py-24 text-cream-muted">No upcoming tours available.</div>}
         {!loading && tours.length > 0 && (
           <div className="grid sm:grid-cols-2 gap-5">
-            {tours.map(t => <TourCard key={t._id} tour={t} onBook={handleBook} />)}
+            {tours.map(t => (
+              <TourCard
+                key={t._id}
+                tour={t}
+                onBook={handleBook}
+                isFav={favIds.has(t._id)}
+                onToggleFav={handleToggleFav}
+                isVisitor={isVisitor}
+              />
+            ))}
           </div>
         )}
       </div>
