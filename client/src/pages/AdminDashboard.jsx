@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { getGuides, updateGuideStatus, deleteGuide, getUsers, deleteUser } from '../api/users';
 import { getPeppers, addPepper, updatePepper, deletePepper } from '../api/peppers';
+import { getAllFeedback, deleteFeedback } from '../api/feedback';
+import { getIssues, updateIssueStatus } from '../api/issues';
 
 const fmtDate = d => new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 const HC = { 'None':'#8B7355','Mild':'#52AB33','Medium':'#D4A053','Hot':'#E88C20','Very Hot':'#E84420','Extreme':'#9A2B0D' };
@@ -464,12 +466,209 @@ function PeppersPanel() {
   );
 }
 
+function StarDisplay({ rating }) {
+  return (
+    <span className="flex items-center gap-0.5">
+      {[1,2,3,4,5].map(i => (
+        <svg key={i} className="w-3.5 h-3.5" fill={i <= rating ? '#D4A053' : 'none'} stroke="#D4A053" strokeWidth={1.5} viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+        </svg>
+      ))}
+    </span>
+  );
+}
+
+function FeedbackPanel() {
+  const [feedbacks, setFeedbacks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [confirm, setConfirm] = useState(null);
+  const [acting, setActing] = useState(null);
+
+  useEffect(() => { getAllFeedback().then(({ data }) => setFeedbacks(data)).catch(() => {}).finally(() => setLoading(false)); }, []);
+
+  const handleDelete = async (id) => {
+    setActing(id); setConfirm(null);
+    try { await deleteFeedback(id); setFeedbacks(p => p.filter(f => f._id !== id)); }
+    catch {} finally { setActing(null); }
+  };
+
+  const grouped = feedbacks.reduce((acc, f) => {
+    const title = f.tourId?.title || 'Unknown Tour';
+    if (!acc[title]) acc[title] = [];
+    acc[title].push(f);
+    return acc;
+  }, {});
+
+  if (loading) return <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="glass-card h-20 animate-pulse" />)}</div>;
+  if (!feedbacks.length) return (
+    <div className="text-center py-20">
+      <div className="w-20 h-20 rounded-3xl mx-auto mb-5 flex items-center justify-center" style={{ background: 'rgba(212,160,83,0.08)' }}>
+        <svg className="w-9 h-9" style={{ color: '#D4A053' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+      </div>
+      <h3 className="text-lg font-bold text-cream mb-2">No Feedback Yet</h3>
+      <p className="text-cream-muted text-sm">Visitor ratings will appear here once submitted.</p>
+    </div>
+  );
+
+  return (
+    <>
+      {confirm && <Confirm message={`Delete this review?`} onConfirm={() => handleDelete(confirm.id)} onCancel={() => setConfirm(null)} />}
+      <div className="space-y-6">
+        {Object.entries(grouped).map(([tourTitle, items]) => (
+          <div key={tourTitle} className="glass-card overflow-hidden">
+            <div className="px-5 py-3.5 flex items-center justify-between" style={{ borderBottom: '1px solid rgba(28,17,10,0.08)', background: 'rgba(28,17,10,0.02)' }}>
+              <p className="font-bold text-cream text-sm">{tourTitle}</p>
+              <span className="text-xs text-cream-muted">{items.length} review{items.length !== 1 ? 's' : ''}</span>
+            </div>
+            {items.map((f, i) => (
+              <div key={f._id} className="px-5 py-4 flex items-start gap-4"
+                style={{ borderBottom: i < items.length - 1 ? '1px solid rgba(28,17,10,0.05)' : 'none' }}>
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-white text-xs flex-shrink-0" style={{ background: 'linear-gradient(135deg, #C23610, #E84420)' }}>
+                  {f.userId?.fullName?.[0]?.toUpperCase()}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="font-bold text-cream text-sm">{f.userId?.fullName || 'Visitor'}</span>
+                    <StarDisplay rating={f.rating} />
+                  </div>
+                  {f.comment && <p className="text-sm text-cream-dim">{f.comment}</p>}
+                  <p className="text-xs text-cream-muted mt-1">{fmtDate(f.createdAt)}</p>
+                </div>
+                <button disabled={!!acting} onClick={() => setConfirm({ id: f._id })}
+                  className="px-3 py-1.5 rounded-lg text-xs font-bold transition-all hover:scale-[1.02]"
+                  style={{ color: '#9B7260', border: '1px solid rgba(28,17,10,0.08)' }}>
+                  Delete
+                </button>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
+const SEV_COLOR = { Low: '#52AB33', Medium: '#D4A053', High: '#E88C20', Critical: '#E84420' };
+const STATUS_COLOR = { Pending: '#9B7260', 'In Progress': '#D4A053', Done: '#52AB33' };
+
+function IssuesPanel() {
+  const [issues, setIssues] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState('All');
+  const [expanded, setExpanded] = useState(null);
+  const [updating, setUpdating] = useState(null);
+  const [statusForm, setStatusForm] = useState({ status: '', managerNotes: '' });
+  const [editingId, setEditingId] = useState(null);
+
+  useEffect(() => { getIssues().then(({ data }) => setIssues(data)).catch(() => {}).finally(() => setLoading(false)); }, []);
+
+  const handleUpdate = async (id) => {
+    if (!statusForm.status) return;
+    setUpdating(id);
+    try {
+      const { data } = await updateIssueStatus(id, statusForm);
+      setIssues(p => p.map(i => i._id === id ? data : i));
+      setEditingId(null);
+      setStatusForm({ status: '', managerNotes: '' });
+    } catch {} finally { setUpdating(null); }
+  };
+
+  const statuses = ['All', 'Pending', 'In Progress', 'Done'];
+  const filtered = filter === 'All' ? issues : issues.filter(i => i.status === filter);
+
+  if (loading) return <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="glass-card h-20 animate-pulse" />)}</div>;
+  if (!issues.length) return (
+    <div className="text-center py-20">
+      <div className="w-20 h-20 rounded-3xl mx-auto mb-5 flex items-center justify-center" style={{ background: 'rgba(232,68,32,0.08)' }}>
+        <svg className="w-9 h-9" style={{ color: '#E84420' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+      </div>
+      <h3 className="text-lg font-bold text-cream mb-2">No Issues Reported</h3>
+      <p className="text-cream-muted text-sm">Technical issues submitted by guides will appear here.</p>
+    </div>
+  );
+
+  return (
+    <div>
+      <div className="flex gap-2 mb-6 flex-wrap">
+        {statuses.map(s => (
+          <button key={s} onClick={() => setFilter(s)}
+            className="px-4 py-2 rounded-xl text-xs font-bold transition-all"
+            style={filter === s
+              ? { background: 'linear-gradient(135deg, #9A2B0D, #C23610)', color: 'white' }
+              : { color: '#9B7260', border: '1px solid rgba(28,17,10,0.10)', background: 'transparent' }}>
+            {s} {s !== 'All' && `(${issues.filter(i => i.status === s).length})`}
+          </button>
+        ))}
+      </div>
+      <div className="space-y-3">
+        {filtered.map(issue => {
+          const isOpen = expanded === issue._id;
+          const sevColor = SEV_COLOR[issue.severity] || '#D4A053';
+          const stColor = STATUS_COLOR[issue.status] || '#9B7260';
+          return (
+            <div key={issue._id} className="glass-card overflow-hidden">
+              <button className="w-full flex items-center gap-4 p-5 text-left" onClick={() => setExpanded(isOpen ? null : issue._id)}>
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-wrap items-center gap-2 mb-1">
+                    <span className="font-bold text-cream text-sm">{issue.title}</span>
+                    <span className="px-2 py-0.5 rounded-full text-[11px] font-bold" style={{ color: sevColor, background: `${sevColor}15` }}>{issue.severity}</span>
+                    <span className="px-2 py-0.5 rounded-full text-[11px] font-bold" style={{ color: stColor, background: `${stColor}15` }}>{issue.status}</span>
+                  </div>
+                  <p className="text-xs text-cream-muted">{issue.guideId?.fullName} · {issue.tourId?.title} · {fmtDate(issue.createdAt)}</p>
+                </div>
+                <svg className={`w-4 h-4 text-cream-muted flex-shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7"/></svg>
+              </button>
+              {isOpen && (
+                <div className="px-5 pb-5 border-t" style={{ borderColor: 'rgba(28,17,10,0.08)' }}>
+                  <p className="text-sm text-cream-dim leading-relaxed mt-4 mb-3">{issue.description}</p>
+                  {issue.attachmentUrl && (
+                    <a href={issue.attachmentUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-xs font-bold mb-4" style={{ color: '#D4A053' }}>
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" /></svg>
+                      View attachment
+                    </a>
+                  )}
+                  {issue.managerNotes && (
+                    <div className="mb-4 p-3 rounded-xl text-sm" style={{ background: 'rgba(82,171,51,0.06)', border: '1px solid rgba(82,171,51,0.12)', color: '#52AB33' }}>
+                      <strong>Manager notes:</strong> {issue.managerNotes}
+                    </div>
+                  )}
+                  {editingId === issue._id ? (
+                    <div className="space-y-3">
+                      <select className="select-dark" value={statusForm.status} onChange={e => setStatusForm(f => ({ ...f, status: e.target.value }))}>
+                        <option value="">Select status…</option>
+                        {['Pending', 'In Progress', 'Done'].map(s => <option key={s}>{s}</option>)}
+                      </select>
+                      <textarea className="input-dark resize-none" rows={2} placeholder="Manager notes (optional)" value={statusForm.managerNotes} onChange={e => setStatusForm(f => ({ ...f, managerNotes: e.target.value }))} />
+                      <div className="flex gap-2">
+                        <button onClick={() => setEditingId(null)} className="btn-ghost px-4 py-2 text-xs flex-1">Cancel</button>
+                        <button disabled={!!updating || !statusForm.status} onClick={() => handleUpdate(issue._id)} className="btn-fire px-4 py-2 text-xs flex-1">{updating === issue._id ? 'Saving…' : 'Save'}</button>
+                      </div>
+                    </div>
+                  ) : (
+                    <button onClick={() => { setEditingId(issue._id); setStatusForm({ status: issue.status, managerNotes: issue.managerNotes || '' }); }}
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all hover:scale-[1.02]"
+                      style={{ color: '#D4A053', background: 'rgba(212,160,83,0.08)', border: '1px solid rgba(212,160,83,0.2)' }}>
+                      Update Status
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export default function AdminDashboard() {
   const [tab, setTab] = useState('guides');
   const tabs = [
-    { key: 'guides', label: 'Guides', icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg> },
-    { key: 'users', label: 'Users', icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg> },
-    { key: 'peppers', label: 'Peppers', icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" /></svg> },
+    { key: 'guides',   label: 'Guides',   icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg> },
+    { key: 'users',    label: 'Users',    icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg> },
+    { key: 'peppers',  label: 'Peppers',  icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" /></svg> },
+    { key: 'feedback', label: 'Feedback', icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg> },
+    { key: 'issues',   label: 'Issues',   icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg> },
   ];
 
   return (
@@ -522,9 +721,11 @@ export default function AdminDashboard() {
           </Link>
         </div>
 
-        {tab === 'guides' && <GuidesPanel />}
-        {tab === 'users' && <UsersPanel />}
-        {tab === 'peppers' && <PeppersPanel />}
+        {tab === 'guides'   && <GuidesPanel />}
+        {tab === 'users'    && <UsersPanel />}
+        {tab === 'peppers'  && <PeppersPanel />}
+        {tab === 'feedback' && <FeedbackPanel />}
+        {tab === 'issues'   && <IssuesPanel />}
       </div>
     </div>
   );
