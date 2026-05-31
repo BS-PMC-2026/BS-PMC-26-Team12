@@ -1,6 +1,9 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { useAuth } from '../context/AuthContext';
+import { getMyTours } from '../api/tours';
+import { submitIssue } from '../api/issues';
 
 function StatCard({ icon, label, value, accent }) {
   return (
@@ -14,8 +17,102 @@ function StatCard({ icon, label, value, accent }) {
   );
 }
 
+const SEVERITY = ['Low', 'Medium', 'High', 'Critical'];
+const SEV_COLOR = { Low: '#52AB33', Medium: '#D4A053', High: '#E88C20', Critical: '#E84420' };
+
+function ReportIssueModal({ tours, onClose }) {
+  const [form, setForm] = useState({ title: '', description: '', tourId: '', severity: 'Medium' });
+  const [file, setFile] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('');
+  const set = k => e => setForm(f => ({ ...f, [k]: e.target.value }));
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    if (!form.title || !form.description || !form.tourId) return setError('Please fill in all required fields.');
+    setSubmitting(true); setError('');
+    try {
+      const fd = new FormData();
+      Object.entries(form).forEach(([k, v]) => fd.append(k, v));
+      if (file) fd.append('attachment', file);
+      await submitIssue(fd);
+      setSuccess(true);
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to submit issue.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-md" onClick={onClose} />
+      <div className="relative z-10 w-full max-w-lg rounded-2xl overflow-hidden" style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.10)' }}>
+        <div className="h-[2px]" style={{ background: 'linear-gradient(90deg, #E88C20, #E84420)' }} />
+        <div className="p-6">
+          {success ? (
+            <div className="text-center py-6">
+              <div className="w-14 h-14 rounded-2xl mx-auto mb-4 flex items-center justify-center" style={{ background: 'rgba(82,171,51,0.1)' }}>
+                <svg className="w-7 h-7" style={{ color: '#52AB33' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+              </div>
+              <p className="font-bold text-cream text-lg mb-1">Issue Reported!</p>
+              <p className="text-cream-dim text-sm mb-5">Your report has been submitted to the manager.</p>
+              <button onClick={onClose} className="btn-ghost px-6 py-2.5 text-sm">Close</button>
+            </div>
+          ) : (
+            <>
+              <h3 className="font-bold text-cream text-xl font-display mb-5">Report Technical Issue</h3>
+              {error && <div className="mb-4 p-3 rounded-xl text-sm" style={{ background: 'rgba(232,68,32,0.08)', color: '#E84420' }}>{error}</div>}
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label className="label-dark">Tour *</label>
+                  <select className="select-dark" value={form.tourId} onChange={set('tourId')}>
+                    <option value="">Select a tour…</option>
+                    {tours.map(t => <option key={t._id} value={t._id}>{t.title}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label className="label-dark">Title *</label>
+                  <input className="input-dark" placeholder="Brief issue title" value={form.title} onChange={set('title')} />
+                </div>
+                <div>
+                  <label className="label-dark">Description *</label>
+                  <textarea className="input-dark resize-none" rows={3} placeholder="Describe the issue in detail…" value={form.description} onChange={set('description')} />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="label-dark">Severity</label>
+                    <select className="select-dark" value={form.severity} onChange={set('severity')}>
+                      {SEVERITY.map(s => <option key={s}>{s}</option>)}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="label-dark">Attachment (optional)</label>
+                    <input type="file" accept="image/*,.pdf" className="input-dark text-xs py-2" onChange={e => setFile(e.target.files[0])} />
+                  </div>
+                </div>
+                <div className="flex gap-3 pt-2">
+                  <button type="button" onClick={onClose} className="btn-ghost px-5 py-2.5 text-sm flex-1">Cancel</button>
+                  <button type="submit" disabled={submitting} className="btn-fire px-6 py-2.5 text-sm flex-1">{submitting ? 'Submitting…' : 'Submit Report'}</button>
+                </div>
+              </form>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function GuideDashboard() {
   const { user } = useAuth();
+  const [myTours, setMyTours] = useState([]);
+  const [showIssueModal, setShowIssueModal] = useState(false);
+
+  useEffect(() => {
+    getMyTours().then(({ data }) => setMyTours(data)).catch(() => {});
+  }, []);
 
   return (
     <div className="min-h-screen bg-dark-300">
@@ -122,32 +219,42 @@ export default function GuideDashboard() {
             </div>
           </Link>
 
-          <div className="glass-card overflow-hidden opacity-45 cursor-not-allowed">
-            <div className="h-[2px]" style={{ background: 'rgba(28,17,10,0.08)' }} />
+          <Link to="/guide/past-tours" className="group glass-card overflow-hidden hover:scale-[1.02] transition-all">
+            <div className="h-[2px]" style={{ background: 'linear-gradient(90deg, #D4A053, #E88C20)' }} />
             <div className="p-6 flex items-start gap-4">
-              <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(28,17,10,0.05)' }}>
-                <svg className="w-6 h-6" style={{ color: '#9B7260' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(212,160,83,0.08)', border: '1px solid rgba(212,160,83,0.12)' }}>
+                <svg className="w-6 h-6" style={{ color: '#D4A053' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
               </div>
               <div className="flex-1">
-                <div className="flex items-center gap-2 mb-1">
-                  <h3 className="font-bold text-cream-dim">Tour Schedule</h3>
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider" style={{ background: 'rgba(28,17,10,0.06)', color: '#9B7260' }}>Coming Soon</span>
-                </div>
-                <p className="text-cream-muted text-sm leading-relaxed">View and manage your assigned tours. Available in the next release.</p>
+                <h3 className="font-bold text-cream mb-1 group-hover:text-fire-400 transition-colors">Past Tours & Ratings</h3>
+                <p className="text-cream-dim text-sm leading-relaxed mb-3">View visitor feedback and star ratings for your completed tours.</p>
+                <span className="inline-flex items-center gap-2 text-xs font-bold transition-all" style={{ color: '#D4A053' }}>
+                  View ratings
+                  <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                </span>
               </div>
             </div>
-          </div>
+          </Link>
+
+          <button onClick={() => setShowIssueModal(true)} className="group glass-card overflow-hidden hover:scale-[1.02] transition-all text-left w-full">
+            <div className="h-[2px]" style={{ background: 'linear-gradient(90deg, #E88C20, #E84420)' }} />
+            <div className="p-6 flex items-start gap-4">
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(232,68,32,0.08)', border: '1px solid rgba(232,68,32,0.12)' }}>
+                <svg className="w-6 h-6" style={{ color: '#E84420' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+              </div>
+              <div className="flex-1">
+                <h3 className="font-bold text-cream mb-1 group-hover:text-fire-400 transition-colors">Report Technical Issue</h3>
+                <p className="text-cream-dim text-sm leading-relaxed mb-3">Submit a technical problem or equipment issue related to your tours.</p>
+                <span className="inline-flex items-center gap-2 text-xs font-bold transition-all" style={{ color: '#E84420' }}>
+                  Report issue
+                  <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                </span>
+              </div>
+            </div>
+          </button>
         </div>
 
-        <div className="glass-card p-5 flex gap-4 items-start" style={{ animation: 'slideUp 0.4s 0.24s ease-out both', background: 'rgba(82,171,51,0.04)', border: '1px solid rgba(82,171,51,0.10)' }}>
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg flex-shrink-0" style={{ background: 'rgba(82,171,51,0.1)' }}>
-            <svg className="w-5 h-5" style={{ color: '#52AB33' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-          </div>
-          <div>
-            <h4 className="font-bold text-sm mb-0.5" style={{ color: '#7DC066' }}>Your account is fully set up</h4>
-            <p className="text-sm leading-relaxed text-cream-dim">As an approved guide you have full access to the pepper catalog. Tour management is planned for the next scope.</p>
-          </div>
-        </div>
+        {showIssueModal && <ReportIssueModal tours={myTours} onClose={() => setShowIssueModal(false)} />}
       </div>
     </div>
   );
