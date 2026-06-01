@@ -1,7 +1,13 @@
-const cron     = require('node-cron');
-const Tour     = require('../models/Tour');
+const cron      = require('node-cron');
+const Tour      = require('../models/Tour');
 const TourOrder = require('../models/TourOrder');
 const { sendEmail } = require('../utils/emailService');
+
+const esc = s => String(s ?? '')
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
+const safeHeader = s => String(s ?? '').replace(/[\r\n]/g, ' ').slice(0, 200);
 
 const startReminderJob = () => {
   cron.schedule('0 * * * *', async () => {
@@ -22,18 +28,18 @@ const startReminderJob = () => {
           const guide = tour.guideId;
           await sendEmail({
             to: guide.email,
-            subject: `Reminder: Your tour "${tour.title}" is tomorrow`,
+            subject: `Reminder: Your tour "${safeHeader(tour.title)}" is tomorrow`,
             html: `
               <h2>Tour Reminder</h2>
-              <p>Hi ${guide.fullName},</p>
+              <p>Hi ${esc(guide.fullName)},</p>
               <p>This is a reminder that you have a tour scheduled tomorrow.</p>
               <ul>
-                <li><strong>Tour:</strong> ${tour.title}</li>
-                <li><strong>Date:</strong> ${new Date(tour.date).toLocaleDateString()}</li>
-                <li><strong>Time:</strong> ${tour.time || 'See tour details'}</li>
-                <li><strong>Participants:</strong> ${tour.bookedSlots}</li>
+                <li><strong>Tour:</strong> ${esc(tour.title)}</li>
+                <li><strong>Date:</strong> ${esc(new Date(tour.date).toLocaleDateString())}</li>
+                <li><strong>Time:</strong> ${esc(tour.time || 'See tour details')}</li>
+                <li><strong>Participants:</strong> ${esc(tour.bookedSlots)}</li>
               </ul>
-              <p>${tour.description || ''}</p>
+              <p>${esc(tour.description || '')}</p>
               <p>Good luck!</p>
             `,
           });
@@ -46,16 +52,16 @@ const startReminderJob = () => {
             const visitor = order.userId;
             await sendEmail({
               to: visitor.email,
-              subject: `Reminder: Your tour "${tour.title}" is tomorrow`,
+              subject: `Reminder: Your tour "${safeHeader(tour.title)}" is tomorrow`,
               html: `
                 <h2>Tour Reminder</h2>
-                <p>Hi ${visitor.fullName},</p>
+                <p>Hi ${esc(visitor.fullName)},</p>
                 <p>This is a reminder that you have a tour booked for tomorrow!</p>
                 <ul>
-                  <li><strong>Tour:</strong> ${tour.title}</li>
-                  <li><strong>Date:</strong> ${new Date(tour.date).toLocaleDateString()}</li>
-                  <li><strong>Time:</strong> ${tour.time || 'See tour details'}</li>
-                  <li><strong>Tickets:</strong> ${order.numberOfTickets}</li>
+                  <li><strong>Tour:</strong> ${esc(tour.title)}</li>
+                  <li><strong>Date:</strong> ${esc(new Date(tour.date).toLocaleDateString())}</li>
+                  <li><strong>Time:</strong> ${esc(tour.time || 'See tour details')}</li>
+                  <li><strong>Tickets:</strong> ${esc(order.numberOfTickets)}</li>
                 </ul>
                 <p>We look forward to seeing you!</p>
               `,
