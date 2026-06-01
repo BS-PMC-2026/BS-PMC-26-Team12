@@ -7,10 +7,10 @@ A full-stack web application for managing a pepper farm's store, guided tours, a
 ## Features
 
 ### Visitor
-- Browse and search the pepper encyclopedia with heat-level filtering
-- Shop for farm products with a fully featured cart (selective checkout, stock enforcement)
-- Book guided farm tours with a payment flow
-- View order history and booking history
+- Browse and search the pepper encyclopedia with heat-level filtering.
+- Shop for farm products with a fully featured cart (selective checkout, stock enforcement).
+- Book guided farm tours with a payment flow.
+- View order history and booking history.
 
 ### Guide
 - Authenticated guide dashboard
