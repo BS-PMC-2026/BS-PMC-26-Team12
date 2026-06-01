@@ -29,7 +29,7 @@ function HeatMeter({ lv, c }) {
       <div className="flex gap-3">
         {Array.from({ length: 5 }).map((_, i) => (
           <div key={i} className="flex-1 flex flex-col items-center gap-2">
-            <div className="w-full h-2.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.04)' }}>
+            <div className="w-full h-2.5 rounded-full overflow-hidden" style={{ background: 'rgba(28,17,10,0.08)' }}>
               <div className="h-full rounded-full transition-all duration-700" style={{
                 width: i < lv ? '100%' : '0%',
                 background: c,
@@ -37,7 +37,7 @@ function HeatMeter({ lv, c }) {
                 transitionDelay: `${i * 100}ms`,
               }} />
             </div>
-            <span className="text-[10px] font-bold" style={{ color: i < lv ? c : 'rgba(240,228,216,0.15)' }}>{i + 1}</span>
+            <span className="text-[10px] font-bold" style={{ color: i < lv ? c : 'rgba(28,17,10,0.20)' }}>{i + 1}</span>
           </div>
         ))}
       </div>
@@ -53,7 +53,7 @@ function InfoCard({ icon, label, value }) {
   return (
     <div className="glass-card p-5 group hover:scale-[1.02] transition-all">
       <div className="flex items-center gap-3 mb-3">
-        <div className="w-9 h-9 rounded-xl flex items-center justify-center text-cream-muted" style={{ background: 'rgba(255,255,255,0.04)' }}>{icon}</div>
+        <div className="w-9 h-9 rounded-xl flex items-center justify-center text-cream-muted" style={{ background: 'rgba(28,17,10,0.05)' }}>{icon}</div>
         <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-cream-muted">{label}</p>
       </div>
       <p className="font-bold text-cream text-lg font-display">{value}</p>
@@ -87,12 +87,12 @@ export default function PepperDetailPage() {
         {loading && (
           <div className="grid lg:grid-cols-2 gap-12 animate-pulse">
             <div className="space-y-6">
-              <div className="h-10 rounded-xl w-3/4" style={{ background: 'rgba(255,255,255,0.05)' }} />
-              <div className="h-4 rounded w-full" style={{ background: 'rgba(255,255,255,0.03)' }} />
-              <div className="h-4 rounded w-5/6" style={{ background: 'rgba(255,255,255,0.03)' }} />
-              <div className="grid grid-cols-2 gap-3">{[1,2,3,4].map(i => <div key={i} className="h-24 rounded-2xl" style={{ background: 'rgba(255,255,255,0.03)' }} />)}</div>
+              <div className="h-10 rounded-xl w-3/4" style={{ background: 'rgba(28,17,10,0.06)' }} />
+              <div className="h-4 rounded w-full" style={{ background: 'rgba(28,17,10,0.04)' }} />
+              <div className="h-4 rounded w-5/6" style={{ background: 'rgba(28,17,10,0.04)' }} />
+              <div className="grid grid-cols-2 gap-3">{[1,2,3,4].map(i => <div key={i} className="h-24 rounded-2xl" style={{ background: 'rgba(28,17,10,0.04)' }} />)}</div>
             </div>
-            <div className="h-96 rounded-2xl" style={{ background: 'rgba(255,255,255,0.03)' }} />
+            <div className="h-96 rounded-2xl" style={{ background: 'rgba(28,17,10,0.04)' }} />
           </div>
         )}
 
@@ -119,7 +119,7 @@ export default function PepperDetailPage() {
                   {h.label} Heat
                 </span>
                 {pepper.color && (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium" style={{ color: 'rgba(240,228,216,0.5)', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium" style={{ color: '#9B7260', background: 'rgba(28,17,10,0.05)', border: '1px solid rgba(28,17,10,0.10)' }}>
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" /></svg>
                     {pepper.color}
                   </span>
@@ -161,13 +161,13 @@ export default function PepperDetailPage() {
             </div>
 
             <div className="lg:col-span-2 lg:sticky lg:top-24" style={{ animation: 'slideUp 0.5s 0.15s ease-out both' }}>
-              <div className="rounded-2xl overflow-hidden mb-3" style={{ border: '1px solid rgba(255,255,255,0.06)', background: 'rgba(0,0,0,0.18)' }}>
+              <div className="rounded-2xl overflow-hidden mb-3" style={{ border: '1px solid rgba(28,17,10,0.08)', background: 'rgba(28,17,10,0.03)' }}>
                 {pepper.imageUrl ? (
                   <img src={pepper.imageUrl} alt={pepper.name} className="w-full object-contain" style={{ maxHeight: 500 }}
                     onError={e => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }} />
                 ) : null}
                 <div className={`items-center justify-center ${pepper.imageUrl ? 'hidden' : 'flex'}`}
-                  style={{ background: `radial-gradient(ellipse at center, ${h.c}08, transparent), rgba(255,255,255,0.015)`, minHeight: 380, display: pepper.imageUrl ? 'none' : 'flex' }}>
+                  style={{ background: `radial-gradient(ellipse at center, ${h.c}08, transparent)`, minHeight: 380, display: pepper.imageUrl ? 'none' : 'flex' }}>
                   <div className="text-center py-12">
                     <div className="w-24 h-24 rounded-3xl mx-auto mb-6 flex items-center justify-center animate-float" style={{ background: `${h.c}10`, border: `1px solid ${h.c}15` }}>
                       <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: h.c }}>
@@ -196,10 +196,10 @@ export default function PepperDetailPage() {
                     return (
                       <div key={k} className="flex flex-col items-center gap-2 flex-1">
                         <div className="w-full h-1.5 rounded-full transition-all" style={{
-                          background: active ? v.gradient : 'rgba(255,255,255,0.04)',
+                          background: active ? v.gradient : 'rgba(28,17,10,0.08)',
                           boxShadow: active ? `0 0 12px ${v.c}50` : 'none',
                         }} />
-                        <span className="text-[8px] font-bold transition-colors" style={{ color: active ? '#F0E4D8' : 'rgba(240,228,216,0.15)' }}>
+                        <span className="text-[8px] font-bold transition-colors" style={{ color: active ? '#1C110A' : 'rgba(28,17,10,0.25)' }}>
                           {k === 'Very Hot' ? 'V.Hot' : k}
                         </span>
                       </div>

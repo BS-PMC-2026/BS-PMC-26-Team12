@@ -22,13 +22,13 @@ export default function AdminLogin() {
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-dark-300">
       <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 40%, rgba(194,54,16,0.08), transparent)' }} />
-      <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+      <div className="absolute inset-0 opacity-[0.5]" style={{ backgroundImage: 'radial-gradient(circle, rgba(28,17,10,0.07) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
       <div className="absolute top-10 right-[15%] w-56 h-56 opacity-[0.04] rotate-[-15deg] animate-float rounded-full" style={{ background: 'radial-gradient(circle, #E84420, transparent 70%)' }} />
 
       <div className="relative z-10 w-full max-w-md mx-6">
-        <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid rgba(255,255,255,0.06)' }}>
+        <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid rgba(28,17,10,0.10)' }}>
           <div className="h-[2px] w-full" style={{ background: 'linear-gradient(90deg, #C23610, #E84420, #D4A053, #52AB33)' }} />
-          <div className="px-8 py-10" style={{ background: 'rgba(255,255,255,0.025)' }}>
+          <div className="px-8 py-10" style={{ background: '#FFFFFF' }}>
             <div className="flex items-center gap-4 mb-8">
               <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-xl animate-pulse-glow" style={{ background: 'linear-gradient(135deg, #C23610, #E84420)', boxShadow: '0 0 30px rgba(232,68,32,0.15)' }}>
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
@@ -77,7 +77,7 @@ export default function AdminLogin() {
               </button>
             </form>
 
-            <div className="mt-8 pt-6 text-center" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+            <div className="mt-8 pt-6 text-center" style={{ borderTop: '1px solid rgba(28,17,10,0.07)' }}>
               <Link to="/" className="text-sm text-cream-muted hover:text-cream-dim transition-colors inline-flex items-center gap-2">
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
                 Back to Pepper Farm

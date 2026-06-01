@@ -20,11 +20,11 @@ export default function GuideRegister() {
   return (
     <div className="min-h-screen flex bg-dark-300">
       <div className="hidden lg:flex lg:w-5/12 xl:w-[45%] flex-col items-center justify-center relative overflow-hidden">
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, #111A0D, #1A2A12, #111A0D)' }} />
-        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(82,171,51,0.10), transparent 70%)' }} />
-        <div className="absolute top-16 right-6 w-40 h-40 opacity-[0.06] rotate-[-10deg] animate-float rounded-full" style={{ background: 'radial-gradient(circle, #52AB33, transparent 70%)' }} />
-        <div className="absolute bottom-20 left-8 w-32 h-32 opacity-[0.04] rotate-[8deg] animate-float-slow rounded-full" style={{ background: 'radial-gradient(circle, #E84420, transparent 70%)' }} />
-        <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, #F0F7EC, #E0F0D8, #F0F7EC)' }} />
+        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(82,171,51,0.08), transparent 70%)' }} />
+        <div className="absolute top-16 right-6 w-40 h-40 opacity-[0.20] rotate-[-10deg] animate-float rounded-full" style={{ background: 'radial-gradient(circle, #52AB33, transparent 70%)' }} />
+        <div className="absolute bottom-20 left-8 w-32 h-32 opacity-[0.15] rotate-[8deg] animate-float-slow rounded-full" style={{ background: 'radial-gradient(circle, #E84420, transparent 70%)' }} />
+        <div className="absolute inset-0 opacity-[0.5]" style={{ backgroundImage: 'radial-gradient(circle, rgba(28,17,10,0.07) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
 
         <div className="relative z-10 px-12 text-center max-w-md">
           <div className="w-20 h-20 rounded-3xl mx-auto mb-8 flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #2D6A1A, #52AB33)', boxShadow: '0 0 40px rgba(82,171,51,0.15)' }}>
@@ -33,14 +33,14 @@ export default function GuideRegister() {
           <h2 className="text-3xl font-bold text-cream mb-4 font-display tracking-tight">Become a Guide</h2>
           <p className="text-cream-dim text-sm leading-relaxed mb-10">Share your passion for peppers. Join our team of certified farm tour guides.</p>
 
-          <div className="glass-card p-5 text-left" style={{ background: 'rgba(255,255,255,0.02)' }}>
+          <div className="glass-card p-5 text-left">
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-cream-muted mb-3">How it works</p>
             {[
               { step: '01', text: 'Submit your application' },
               { step: '02', text: 'Admin reviews your profile' },
               { step: '03', text: 'Get approved & start guiding' },
             ].map(({ step, text }) => (
-              <div key={step} className="flex items-center gap-3 py-2.5" style={{ borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
+              <div key={step} className="flex items-center gap-3 py-2.5" style={{ borderBottom: '1px solid rgba(28,17,10,0.06)' }}>
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center text-[10px] font-bold flex-shrink-0" style={{ color: '#52AB33', background: 'rgba(82,171,51,0.08)' }}>{step}</div>
                 <span className="text-sm text-cream-dim">{text}</span>
               </div>
@@ -121,7 +121,7 @@ export default function GuideRegister() {
                     {errors.confirmPassword && <p className="mt-1.5 text-xs text-fire-400">{errors.confirmPassword}</p>}
                   </div>
                 </div>
-                <div className="pt-2" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+                <div className="pt-2" style={{ borderTop: '1px solid rgba(28,17,10,0.07)' }}>
                   <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-cream-muted mb-3">Professional Info</p>
                 </div>
                 <div>
@@ -154,7 +154,7 @@ export default function GuideRegister() {
                   </>}
                 </button>
               </form>
-              <p className="mt-6 pt-6 text-center text-sm text-cream-muted" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+              <p className="mt-6 pt-6 text-center text-sm text-cream-muted" style={{ borderTop: '1px solid rgba(28,17,10,0.07)' }}>
                 Already registered? <Link to="/guide/login" className="font-semibold hover:text-cream-dim transition-colors" style={{ color: '#52AB33' }}>Login as guide</Link>
               </p>
             </>

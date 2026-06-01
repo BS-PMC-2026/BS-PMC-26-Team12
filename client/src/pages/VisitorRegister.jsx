@@ -28,11 +28,11 @@ export default function VisitorRegister() {
   return (
     <div className="min-h-screen flex bg-dark-300">
       <div className="hidden lg:flex lg:w-5/12 xl:w-[45%] flex-col items-center justify-center relative overflow-hidden">
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, #1C1614, #2A1A14, #1C1614)' }} />
-        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(232,68,32,0.12), transparent 70%)' }} />
-        <div className="absolute top-20 right-8 w-52 h-52 opacity-[0.07] rotate-[-15deg] animate-float rounded-full" style={{ background: 'radial-gradient(circle, #E84420, transparent 70%)' }} />
-        <div className="absolute bottom-24 left-6 w-28 h-28 opacity-[0.05] rotate-[10deg] animate-float-slow rounded-full" style={{ background: 'radial-gradient(circle, #52AB33, transparent 70%)' }} />
-        <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, #FFF2E8, #FFE4D0, #FFF2E8)' }} />
+        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(232,68,32,0.08), transparent 70%)' }} />
+        <div className="absolute top-20 right-8 w-52 h-52 opacity-[0.20] rotate-[-15deg] animate-float rounded-full" style={{ background: 'radial-gradient(circle, #E84420, transparent 70%)' }} />
+        <div className="absolute bottom-24 left-6 w-28 h-28 opacity-[0.15] rotate-[10deg] animate-float-slow rounded-full" style={{ background: 'radial-gradient(circle, #52AB33, transparent 70%)' }} />
+        <div className="absolute inset-0 opacity-[0.5]" style={{ backgroundImage: 'radial-gradient(circle, rgba(28,17,10,0.07) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
 
         <div className="relative z-10 px-12 text-center max-w-md">
           <div className="w-20 h-20 rounded-3xl mx-auto mb-8 flex items-center justify-center animate-pulse-glow" style={{ background: 'linear-gradient(135deg, #C23610, #E84420)', boxShadow: '0 0 40px rgba(232,68,32,0.2)' }}>
@@ -43,11 +43,11 @@ export default function VisitorRegister() {
 
           <div className="space-y-3 text-left">
             {steps.map(({ num, label, done }) => (
-              <div key={num} className="flex items-center gap-3 px-4 py-3 rounded-xl transition-all" style={{ background: done ? 'rgba(82,171,51,0.06)' : 'rgba(255,255,255,0.02)', border: `1px solid ${done ? 'rgba(82,171,51,0.15)' : 'rgba(255,255,255,0.04)'}` }}>
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0" style={{ background: done ? 'rgba(82,171,51,0.15)' : 'rgba(255,255,255,0.05)', color: done ? '#52AB33' : 'rgba(240,228,216,0.3)' }}>
+              <div key={num} className="flex items-center gap-3 px-4 py-3 rounded-xl transition-all" style={{ background: done ? 'rgba(82,171,51,0.06)' : 'rgba(28,17,10,0.03)', border: `1px solid ${done ? 'rgba(82,171,51,0.15)' : 'rgba(28,17,10,0.06)'}` }}>
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0" style={{ background: done ? 'rgba(82,171,51,0.15)' : 'rgba(28,17,10,0.06)', color: done ? '#52AB33' : 'rgba(28,17,10,0.30)' }}>
                   {done ? <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg> : num}
                 </div>
-                <span className="text-sm font-medium" style={{ color: done ? '#52AB33' : 'rgba(240,228,216,0.4)' }}>{label}</span>
+                <span className="text-sm font-medium" style={{ color: done ? '#52AB33' : 'rgba(28,17,10,0.40)' }}>{label}</span>
               </div>
             ))}
           </div>
@@ -116,7 +116,7 @@ export default function VisitorRegister() {
             </button>
           </form>
 
-          <div className="mt-8 pt-6 space-y-3 text-center text-sm" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+          <div className="mt-8 pt-6 space-y-3 text-center text-sm" style={{ borderTop: '1px solid rgba(28,17,10,0.07)' }}>
             <p className="text-cream-muted">Already have an account? <Link to="/login" className="text-fire-400 font-semibold hover:text-fire-300 transition-colors">Login</Link></p>
             <p className="text-cream-muted">Are you a guide? <Link to="/guide/register" className="text-cream-dim font-semibold hover:text-cream transition-colors">Register here</Link></p>
           </div>
