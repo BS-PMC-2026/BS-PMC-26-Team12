@@ -1,5 +1,6 @@
 const TourFeedback = require('../models/TourFeedback');
 const TourOrder    = require('../models/TourOrder');
+const Tour         = require('../models/Tour');
 
 exports.submitFeedback = async (req, res) => {
   const { orderId, rating, comment } = req.body;
@@ -39,6 +40,10 @@ exports.getMyFeedback = async (req, res) => {
 
 exports.getTourFeedback = async (req, res) => {
   try {
+    if (req.user.role === 'guide') {
+      const tour = await Tour.findOne({ _id: req.params.tourId, guideId: req.user.id });
+      if (!tour) return res.status(404).json({ message: 'Tour not found' });
+    }
     const feedbacks = await TourFeedback.find({ tourId: req.params.tourId })
       .populate('userId', 'fullName')
       .sort({ createdAt: -1 });
