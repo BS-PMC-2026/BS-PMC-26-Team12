@@ -35,6 +35,17 @@ exports.getIssues = async (req, res) => {
   }
 };
 
+exports.getMyIssues = async (req, res) => {
+  try {
+    const issues = await TechnicalIssue.find({ guideId: req.user.id })
+      .populate('tourId', 'title')
+      .sort({ createdAt: -1 });
+    res.json(issues);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+};
+
 exports.updateIssueStatus = async (req, res) => {
   const { status, managerNotes } = req.body;
   const valid = ['Pending', 'In Progress', 'Done'];
