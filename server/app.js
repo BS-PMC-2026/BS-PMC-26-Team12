@@ -27,6 +27,19 @@ app.use('/api/favorites',   require('./routes/favorites'));
 
 app.get('/api/health', (_, res) => res.json({ status: 'ok' }));
 
+// Temporary test endpoint — remove after confirming email works
+const { protect, requireRole } = require('./middleware/auth');
+app.post('/api/test-email', protect, requireRole('admin'), async (req, res) => {
+  const { sendEmail } = require('./utils/emailService');
+  const result = await sendEmail({
+    to: process.env.EMAIL_USER,
+    subject: 'Pepper Farm — email test',
+    html: '<h2>It works!</h2><p>Email delivery is configured correctly.</p>',
+  });
+  if (!result.success) console.error('Test email failed:', result.error);
+  res.json({ success: result.success });
+});
+
 // Serve React frontend in production
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/dist')));
