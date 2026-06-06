@@ -71,6 +71,43 @@ exports.updateTour = async (req, res) => {
     Object.assign(tour, { title: title.trim(), description: description.trim(), date, time, price, maxParticipants });
     await tour.save();
     res.json(tour);
+
+    try {
+      const TourOrder = require('../models/TourOrder');
+      const { sendEmail } = require('../utils/emailService');
+      const esc = s => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
+      const confirmedOrders = await TourOrder.find({
+        tourId: tour._id,
+        status: 'confirmed',
+      }).populate('userId');
+
+      for (const order of confirmedOrders) {
+        if (order.userId && order.userId.email) {
+          await sendEmail({
+            to: order.userId.email,
+            subject: `Update: Your booked tour "${esc(tour.title)}" has been modified`,
+            html: `
+              <h2>Tour Update Notice</h2>
+              <p>Hi ${esc(order.userId.fullName)},</p>
+              <p>A tour you have booked has been updated with new details:</p>
+              <ul>
+                <li><strong>Tour:</strong> ${esc(tour.title)}</li>
+                <li><strong>Date:</strong> ${esc(new Date(tour.date).toLocaleDateString())}</li>
+                <li><strong>Time:</strong> ${esc(tour.time || 'See tour details')}</li>
+                <li><strong>Price:</strong> $${esc(tour.price)}</li>
+                <li><strong>Max Participants:</strong> ${esc(tour.maxParticipants)}</li>
+                <li><strong>Description:</strong> ${esc(tour.description)}</li>
+              </ul>
+              <p>If you have any concerns, please contact support.</p>
+              <p>Thank you for booking with Pepper Farm!</p>
+            `,
+          });
+        }
+      }
+    } catch (emailErr) {
+      console.error('Tour update email error:', emailErr.message);
+    }
   } catch (err) {
     res.status(500).json({ message: 'Server error', error: err.message });
   }
