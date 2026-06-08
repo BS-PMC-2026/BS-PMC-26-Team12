@@ -5,3 +5,6 @@ dist/
 .DS_Store
 package-lock.json
 .claude/
+.agents/
+
+skills-lock.json
