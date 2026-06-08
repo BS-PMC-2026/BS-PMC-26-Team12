@@ -32,7 +32,7 @@ exports.bookTour = async (req, res) => {
 exports.getMyBookings = async (req, res) => {
   try {
     const bookings = await TourOrder.find({ userId: req.user.id })
-      .populate('tourId')
+      .populate({ path: 'tourId', populate: { path: 'guideId', select: 'fullName' } })
       .sort({ createdAt: -1 });
     res.json(bookings);
   } catch (err) {
