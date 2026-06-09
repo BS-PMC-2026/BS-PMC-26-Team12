@@ -47,7 +47,7 @@ function ReportIssueModal({ tours, onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-md" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/60" onClick={onClose} />
       <div className="relative z-10 w-full max-w-lg rounded-2xl overflow-hidden" style={{ background: '#FFFFFF', border: '1px solid rgba(28,17,10,0.10)' }}>
         <div className="h-[2px]" style={{ background: 'linear-gradient(90deg, #E88C20, #E84420)' }} />
         <div className="p-6">
@@ -89,7 +89,7 @@ function ReportIssueModal({ tours, onClose }) {
                   </div>
                   <div>
                     <label className="label-dark">Attachment (optional)</label>
-                    <input type="file" accept="image/*,.pdf" className="input-dark text-xs py-2" onChange={e => setFile(e.target.files[0])} />
+                    <input type="file" accept=".jpg,.jpeg,.png" className="input-dark text-xs py-2" onChange={e => setFile(e.target.files[0])} />
                   </div>
                 </div>
                 <div className="flex gap-3 pt-2">
