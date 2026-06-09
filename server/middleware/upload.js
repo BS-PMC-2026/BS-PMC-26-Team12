@@ -12,7 +12,7 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder:          'pepper-farm/issues',
-    allowed_formats: ['jpg', 'jpeg', 'png', 'pdf'],
+    allowed_formats: ['jpg', 'jpeg', 'png'],
     resource_type:   'auto',
   },
 });
