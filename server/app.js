@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const morgan = require('morgan');
 
 const app = express();
 
@@ -9,6 +10,7 @@ const allowedOrigins = process.env.CORS_ORIGIN
   ? process.env.CORS_ORIGIN.split(',')
   : ['http://localhost:5173'];
 
+app.use(morgan('dev'));
 app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.json());
 
