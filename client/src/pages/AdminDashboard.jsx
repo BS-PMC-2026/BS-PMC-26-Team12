@@ -622,9 +622,9 @@ function IssuesPanel() {
                 <div className="px-5 pb-5 border-t" style={{ borderColor: 'rgba(28,17,10,0.08)' }}>
                   <p className="text-sm text-cream-dim leading-relaxed mt-4 mb-3">{issue.description}</p>
                   {issue.attachmentUrl && (
-                    <a href={issue.attachmentUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-xs font-bold mb-4" style={{ color: '#D4A053' }}>
+                    <a href={issue.attachmentUrl.replace('/upload/', '/upload/fl_attachment/')} target="_blank" rel="noopener noreferrer" download className="inline-flex items-center gap-1.5 text-xs font-bold mb-4" style={{ color: '#D4A053' }}>
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" /></svg>
-                      View attachment
+                      Download attachment
                     </a>
                   )}
                   {issue.managerNotes && (
